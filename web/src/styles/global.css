@@ -1,0 +1,19 @@
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+h1, h2, h3 { font-family: var(--font-heading); }
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-2); }
+.grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.site-header, .site-footer { padding: var(--space-2) 0; }
+.site-header nav { display: flex; gap: var(--space-2); flex-wrap: wrap; align-items: center; }
+.site-header .brand { font-weight: 700; margin-right: auto; text-decoration: none; }
+.card { display: block; text-decoration: none; }
+.card img { aspect-ratio: 4 / 3; object-fit: cover; width: 100%; background: #eee; }
+.countdown { display: flex; gap: var(--space-2); }
+.countdown div { text-align: center; }
+.countdown strong { display: block; font-size: 2rem; }
+.gallery { display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }

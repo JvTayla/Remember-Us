@@ -1,0 +1,13 @@
+{
+  "name": "remember-us-website",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Remember Us - 4th year creative project showcase website",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix web && npm install --prefix studio",
+    "dev:web": "npm run dev --prefix web",
+    "dev:studio": "npm run dev --prefix studio",
+    "build:web": "npm run build --prefix web",
+    "build:studio": "npm run build --prefix studio"
+  }
+}

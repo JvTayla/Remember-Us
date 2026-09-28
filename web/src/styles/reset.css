@@ -1,0 +1,4 @@
+*, *::before, *::after { box-sizing: border-box; }
+body, h1, h2, h3, p, figure { margin: 0; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
