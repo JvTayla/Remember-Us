@@ -1,4 +1,4 @@
-import ProjectCard from './ProjectCard.jsx'
+import ProjectCard from './ProjectCard'
 
 export default function ProjectGrid({ projects }) {
   if (!projects?.length) return <p>No projects yet.</p>

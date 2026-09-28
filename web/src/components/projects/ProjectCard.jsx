@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom'
-import { urlFor } from '../../lib/sanityClient.js'
+import Link from 'next/link'
+import { urlFor } from '@/lib/sanityClient'
 
 export default function ProjectCard({ project }) {
   return (
-    <Link to={`/project/${project.slug}`} className="card">
+    <Link href={`/project/${project.slug}`} className="card">
       {project.heroImage && (
         <img src={urlFor(project.heroImage).width(600).height(450).url()} alt={project.title} loading="lazy" />
       )}

@@ -1,7 +1,7 @@
-import { urlFor } from '../../lib/sanityClient.js'
+import { urlFor } from '@/lib/sanityClient'
 
 export default function ImageGallery({ images = [], title = '' }) {
-  if (!images.length) return null
+  if (!images?.length) return null
   return (
     <div className="gallery">
       {images.map((img, i) => (

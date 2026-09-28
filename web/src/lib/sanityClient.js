@@ -2,11 +2,17 @@ import { createClient } from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
 
 export const client = createClient({
-  projectId: import.meta.env.VITE_SANITY_PROJECT_ID,
-  dataset: import.meta.env.VITE_SANITY_DATASET || 'production',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2024-01-01',
   useCdn: true,
 })
 
 const builder = imageUrlBuilder(client)
 export const urlFor = (source) => builder.image(source)
+
+// Server-side fetch. Content is re-checked at most once a minute, so edits in
+// the Studio show up quickly without rebuilding the site.
+export function sanityFetch(query, params = {}) {
+  return client.fetch(query, params, { next: { revalidate: 60 } })
+}

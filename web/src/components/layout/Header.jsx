@@ -1,19 +1,19 @@
-import { Link } from 'react-router-dom'
-import useSanityQuery from '../../hooks/useSanityQuery.js'
-import { categoriesQuery } from '../../lib/queries.js'
+import Link from 'next/link'
+import { sanityFetch } from '@/lib/sanityClient'
+import { categoriesQuery } from '@/lib/queries'
 
-export default function Header() {
-  const { data: categories } = useSanityQuery(categoriesQuery)
+export default async function Header() {
+  const categories = await sanityFetch(categoriesQuery)
 
   return (
     <header className="site-header">
       <div className="container">
         <nav>
-          <Link to="/" className="brand">Remember Us</Link>
+          <Link href="/" className="brand">Remember Us</Link>
           {categories?.map((c) => (
-            <Link key={c.slug} to={`/category/${c.slug}`}>{c.title}</Link>
+            <Link key={c.slug} href={`/category/${c.slug}`}>{c.title}</Link>
           ))}
-          <Link to="/about">About</Link>
+          <Link href="/about">About</Link>
         </nav>
       </div>
     </header>
