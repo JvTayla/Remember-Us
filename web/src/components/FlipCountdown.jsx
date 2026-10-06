@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react'
 import './FlipCountdown.css'
 
@@ -47,7 +49,7 @@ function FlipCard({ value }) {
   )
 }
 
-function Unit({ value, label }) {
+export function Unit({ value, label }) {
   const digits = pad(value).split('')
   return (
     <div className="unit">
@@ -76,9 +78,9 @@ export default function FlipCountdown({
   }, [target])
 
   return (
-    <section className="countdown" aria-labelledby="cd-title">
-      <h1 id="cd-title" className="cd-title">{title}</h1>
-      <p className="cd-sub">{subtitle}</p>
+    <section className="countdown" aria-label="Countdown to the exhibition">
+      {title && <h1 id="cd-title" className="cd-title">{title}</h1>}
+      {subtitle && <p className="cd-sub">{subtitle}</p>}
 
       {t.done ? (
         <p className="cd-open">The exhibition is open.</p>
