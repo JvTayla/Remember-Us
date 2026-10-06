@@ -9,5 +9,8 @@
     "dev:studio": "npm run dev --prefix studio",
     "build:web": "npm run build --prefix web",
     "build:studio": "npm run build --prefix studio"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1"
   }
 }
