@@ -1,0 +1,107 @@
+/* [project]/web/src/styles/RememberUsTitle.module.css [app-client] (css) */
+.RememberUsTitle-module__L9ZqLW__title {
+  isolation: isolate;
+  font-family: var(--font-title, Impact, sans-serif);
+  margin: 0;
+  padding: .12em .2em;
+  font-size: clamp(1.5rem, 6vw, 3.2rem);
+  font-weight: 400;
+  line-height: 1;
+  display: inline-block;
+  position: relative;
+}
+
+.RememberUsTitle-module__L9ZqLW__srOnly {
+  clip-path: inset(50%);
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  overflow: hidden;
+}
+
+.RememberUsTitle-module__L9ZqLW__marquee {
+  z-index: 0;
+  background: #d8c2a4;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  box-shadow: 0 .05em .12em #0000004d;
+}
+
+.RememberUsTitle-module__L9ZqLW__track {
+  width: max-content;
+  height: 100%;
+  animation: RememberUsTitle-module__L9ZqLW__scroll var(--duration, 40s) linear infinite;
+  display: flex;
+}
+
+.RememberUsTitle-module__L9ZqLW__group {
+  flex: none;
+  height: 100%;
+  display: flex;
+}
+
+.RememberUsTitle-module__L9ZqLW__photo {
+  aspect-ratio: 1;
+  object-fit: cover;
+  filter: sepia(.45) contrast(.9) brightness(1.05);
+  opacity: .9;
+  flex: none;
+  width: auto;
+  height: 100%;
+}
+
+@keyframes RememberUsTitle-module__L9ZqLW__scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .RememberUsTitle-module__L9ZqLW__track {
+    animation: none;
+  }
+}
+
+.RememberUsTitle-module__L9ZqLW__letters {
+  z-index: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: .15em .55em;
+  display: flex;
+  position: relative;
+}
+
+.RememberUsTitle-module__L9ZqLW__word {
+  gap: .07em;
+  display: flex;
+}
+
+.RememberUsTitle-module__L9ZqLW__tile {
+  text-align: center;
+  letter-spacing: 0;
+  min-width: .95em;
+  transform: translateY(var(--y)) rotate(var(--r));
+  padding: .04em .07em 0;
+  display: inline-block;
+  box-shadow: 0 .04em .08em #00000059;
+}
+
+.RememberUsTitle-module__L9ZqLW__tile[data-variant="0"] {
+  color: #0d0d0d;
+  background: #f4f1ea;
+}
+
+.RememberUsTitle-module__L9ZqLW__tile[data-variant="1"] {
+  color: #0d0d0d;
+  background: #e3cdb0;
+}
+
+.RememberUsTitle-module__L9ZqLW__tile[data-variant="2"] {
+  color: #f4f1ea;
+  background: #0d0d0d;
+}
+
+/*# sourceMappingURL=web_src_styles_RememberUsTitle_module_css_1igg3k2-ikub5._.single.css.map*/

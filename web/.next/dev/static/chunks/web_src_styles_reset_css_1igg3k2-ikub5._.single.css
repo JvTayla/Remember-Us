@@ -1,0 +1,19 @@
+/* [project]/web/src/styles/reset.css [app-client] (css) */
+*, :before, :after {
+  box-sizing: border-box;
+}
+
+body, h1, h2, h3, p, figure {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+/*# sourceMappingURL=web_src_styles_reset_css_1igg3k2-ikub5._.single.css.map*/

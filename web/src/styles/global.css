@@ -6,6 +6,10 @@ body {
 }
 h1, h2, h3 { font-family: var(--font-heading); }
 
+.exhibition-title {
+  font-family: var(--font-display), sans-serif;
+}
+
 .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--space-2); }
 .grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
 .site-header, .site-footer { padding: var(--space-2) 0; }
@@ -17,3 +21,8 @@ h1, h2, h3 { font-family: var(--font-heading); }
 .countdown div { text-align: center; }
 .countdown strong { display: block; font-size: 2rem; }
 .gallery { display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+body {
+  background: var(--paper, #f4f1ea) url('/textured-bg.jpg') center / cover no-repeat fixed;
+  overflow-x: clip;
+}

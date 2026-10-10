@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/web/src/styles/variables.css"],"sourcesContent":["/* Replace these with the final theme from Figma / Pinterest board */\r\n:root {\r\n  --color-bg: #ffffff;\r\n  --color-text: #111111;\r\n  --color-accent: #6c47ff;\r\n  --color-muted: #666666;\r\n\r\n  --font-body: system-ui, sans-serif;\r\n  --font-heading: system-ui, sans-serif;\r\n\r\n  --space-1: 0.5rem;\r\n  --space-2: 1rem;\r\n  --space-3: 2rem;\r\n  --space-4: 4rem;\r\n\r\n  --max-width: 1100px;\r\n}\r\n"],"names":[],"mappings":"AACA"}}]
+}

@@ -1,0 +1,91 @@
+.title {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  margin: 0;
+  padding: 0.12em 0.2em;
+  font-family: var(--font-title, Impact, sans-serif); /* put the reall font idk which one it is for now sorry  */
+  font-weight: 400;
+  font-size: clamp(1.5rem, 6vw, 3.2rem);
+  line-height: 1;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- Photo strip behind the letters ---------- */
+.marquee {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #d8c2a4; /* shows if no photos are set */
+  box-shadow: 0 0.05em 0.12em rgba(0, 0, 0, 0.3);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: scroll var(--duration, 40s) linear infinite;
+}
+
+.group {
+  display: flex;
+  flex: none;
+  height: 100%;
+}
+
+.photo {
+  flex: none;
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  filter: sepia(0.45) contrast(0.9) brightness(1.05);
+  opacity: 0.9;
+}
+
+@keyframes scroll {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: none; }
+}
+
+/* ---------- Cut-out letter tiles ---------- */
+.letters {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.15em 0.55em;
+}
+
+.word {
+  display: flex;
+  gap: 0.07em;
+}
+
+.tile {
+  display: inline-block;
+  min-width: 0.95em;
+  padding: 0.04em 0.07em 0;
+  text-align: center;
+  letter-spacing: 0;
+  transform: translateY(var(--y)) rotate(var(--r));
+  box-shadow: 0 0.04em 0.08em rgba(0, 0, 0, 0.35);
+}
+
+.tile[data-variant='0'] { background: #f4f1ea; color: #0d0d0d; } /* paper */
+.tile[data-variant='1'] { background: #e3cdb0; color: #0d0d0d; } /* tan */
+.tile[data-variant='2'] { background: #0d0d0d; color: #f4f1ea; } /* ink */

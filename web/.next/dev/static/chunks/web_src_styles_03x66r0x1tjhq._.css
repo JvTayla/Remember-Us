@@ -1,0 +1,107 @@
+/* [project]/web/src/styles/reset.css [app-client] (css) */
+*, :before, :after {
+  box-sizing: border-box;
+}
+
+body, h1, h2, h3, p, figure {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+/* [project]/web/src/styles/variables.css [app-client] (css) */
+:root {
+  --color-bg: #fff;
+  --color-text: #111;
+  --color-accent: #6c47ff;
+  --color-muted: #666;
+  --font-body: system-ui, sans-serif;
+  --font-heading: system-ui, sans-serif;
+  --space-1: .5rem;
+  --space-2: 1rem;
+  --space-3: 2rem;
+  --space-4: 4rem;
+  --max-width: 1100px;
+}
+
+/* [project]/web/src/styles/global.css [app-client] (css) */
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+}
+
+.container {
+  max-width: var(--max-width);
+  padding: 0 var(--space-2);
+  margin: 0 auto;
+}
+
+.grid {
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  display: grid;
+}
+
+.site-header, .site-footer {
+  padding: var(--space-2) 0;
+}
+
+.site-header nav {
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+  display: flex;
+}
+
+.site-header .brand {
+  margin-right: auto;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.card {
+  text-decoration: none;
+  display: block;
+}
+
+.card img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #eee;
+  width: 100%;
+}
+
+.countdown {
+  gap: var(--space-2);
+  display: flex;
+}
+
+.countdown div {
+  text-align: center;
+}
+
+.countdown strong {
+  font-size: 2rem;
+  display: block;
+}
+
+.gallery {
+  gap: var(--space-2);
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  display: grid;
+}
+
+/*# sourceMappingURL=web_src_styles_03x66r0x1tjhq._.css.map*/

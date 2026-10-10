@@ -1,0 +1,83 @@
+/* [project]/web/src/styles/global.css [app-client] (css) */
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+}
+
+.exhibition-title {
+  font-family: var(--font-display), sans-serif;
+}
+
+.container {
+  max-width: var(--max-width);
+  padding: 0 var(--space-2);
+  margin: 0 auto;
+}
+
+.grid {
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  display: grid;
+}
+
+.site-header, .site-footer {
+  padding: var(--space-2) 0;
+}
+
+.site-header nav {
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+  display: flex;
+}
+
+.site-header .brand {
+  margin-right: auto;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.card {
+  text-decoration: none;
+  display: block;
+}
+
+.card img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #eee;
+  width: 100%;
+}
+
+.countdown {
+  gap: var(--space-2);
+  display: flex;
+}
+
+.countdown div {
+  text-align: center;
+}
+
+.countdown strong {
+  font-size: 2rem;
+  display: block;
+}
+
+.gallery {
+  gap: var(--space-2);
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  display: grid;
+}
+
+body {
+  background: var(--paper, #f4f1ea) url("/textured-bg.jpg") center / cover no-repeat fixed;
+  overflow-x: clip;
+}
+
+/*# sourceMappingURL=web_src_styles_global_css_1igg3k2-ikub5._.single.css.map*/

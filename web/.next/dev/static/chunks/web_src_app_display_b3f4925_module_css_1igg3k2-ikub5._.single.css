@@ -1,0 +1,25 @@
+/* [project]/web/src/app/display_b3f4925.module.css [app-client] (css) */
+@font-face {
+  font-family: display;
+  src: url("../media/YESTER-s.p.0nl7rcd4o7l_e.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: display Fallback;
+  src: local(Arial);
+  ascent-override: 78.72%;
+  descent-override: 20.63%;
+  line-gap-override: 0.0%;
+  size-adjust: 96.93%;
+}
+
+.display_b3f4925-module__UJnYwq__className {
+  font-family: display, display Fallback;
+}
+
+.display_b3f4925-module__UJnYwq__variable {
+  --font-display: "display", "display Fallback";
+}
+
+/*# sourceMappingURL=web_src_app_display_b3f4925_module_css_1igg3k2-ikub5._.single.css.map*/

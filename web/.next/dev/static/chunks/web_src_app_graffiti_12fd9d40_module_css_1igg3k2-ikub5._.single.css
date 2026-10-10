@@ -1,0 +1,25 @@
+/* [project]/web/src/app/graffiti_12fd9d40.module.css [app-client] (css) */
+@font-face {
+  font-family: graffiti;
+  src: url("../media/prakta-s.p.28dn74c5vunx4.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: graffiti Fallback;
+  src: local(Arial);
+  ascent-override: 70.53%;
+  descent-override: 28.21%;
+  line-gap-override: 0.0%;
+  size-adjust: 113.97%;
+}
+
+.graffiti_12fd9d40-module__AJXacq__className {
+  font-family: graffiti, graffiti Fallback;
+}
+
+.graffiti_12fd9d40-module__AJXacq__variable {
+  --font-graffiti: "graffiti", "graffiti Fallback";
+}
+
+/*# sourceMappingURL=web_src_app_graffiti_12fd9d40_module_css_1igg3k2-ikub5._.single.css.map*/

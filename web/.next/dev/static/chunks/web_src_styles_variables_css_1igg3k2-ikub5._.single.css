@@ -1,0 +1,16 @@
+/* [project]/web/src/styles/variables.css [app-client] (css) */
+:root {
+  --color-bg: #fff;
+  --color-text: #111;
+  --color-accent: #6c47ff;
+  --color-muted: #666;
+  --font-body: system-ui, sans-serif;
+  --font-heading: system-ui, sans-serif;
+  --space-1: .5rem;
+  --space-2: 1rem;
+  --space-3: 2rem;
+  --space-4: 4rem;
+  --max-width: 1100px;
+}
+
+/*# sourceMappingURL=web_src_styles_variables_css_1igg3k2-ikub5._.single.css.map*/

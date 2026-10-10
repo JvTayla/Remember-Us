@@ -1,8 +1,13 @@
-import Countdown from '@/components/countdown/Countdown'
+import Image from 'next/image'
+
 import ProjectGrid from '@/components/projects/ProjectGrid'
 import { sanityFetch } from '@/lib/sanityClient'
 import { siteSettingsQuery, projectsQuery } from '@/lib/queries'
+import building from '@/assets/building.png' //might need a building image with the blue thing and maybe no background
+import RememberUsTitle from './RememberUsTitle'
 
+import Countdown from './Countdown'
+import styles from '@/styles/home.module.css'
 export default async function Home() {
   const [settings, projects] = await Promise.all([
     sanityFetch(siteSettingsQuery),
@@ -11,9 +16,23 @@ export default async function Home() {
 
   return (
     <>
-      <h1>Remember Us</h1>
-      <p>{settings?.tagline || 'Creative Project Showcase'}</p>
-      <Countdown eventDate={settings?.eventDate} eventLocation={settings?.eventLocation} />
+      <section className={styles.hero}>
+        <div className={styles.content}>
+          <RememberUsTitle images={settings?.marqueeImages} speed={settings?.marqueeSpeed} />
+         <h2 className={styles.exhibition}>EXHIBITION '26</h2>
+          <p className={styles.tagline}>{settings?.tagline || 'Creative Project Showcase'}</p>
+          <Countdown eventDate={settings?.eventDate} eventLocation={settings?.eventLocation} />
+        </div>
+
+        <Image
+          className={styles.building}
+          src={building}
+          alt=""
+          priority
+          sizes="(max-width: 720px) 62vw, 35vw"
+        />
+      </section>
+
       <h2>Projects</h2>
       <ProjectGrid projects={projects} />
     </>

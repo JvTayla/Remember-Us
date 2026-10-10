@@ -1,0 +1,69 @@
+/* [project]/web/src/styles/Countdown.module.css [app-client] (css) */
+.Countdown-module__9jmnQW__countdown {
+  justify-content: center;
+  gap: clamp(.5rem, 1.6vw, .9rem);
+  margin: clamp(1.6rem, 5vh, 2.6rem) 0 1.4rem;
+  display: flex;
+}
+
+.Countdown-module__9jmnQW__pending {
+  visibility: hidden;
+}
+
+.Countdown-module__9jmnQW__tile {
+  filter: drop-shadow(0 4px 3px #00000059);
+  flex-direction: column;
+  gap: 3px;
+  width: clamp(60px, 11vw, 90px);
+  display: flex;
+}
+
+.Countdown-module__9jmnQW__num, .Countdown-module__9jmnQW__label {
+  background: var(--ink, #0d0d0d);
+  color: #fff;
+  font-family: var(--font-serif, Georgia, serif);
+  text-align: center;
+}
+
+.Countdown-module__9jmnQW__num {
+  font-variant-numeric: tabular-nums;
+  border-radius: 10px 10px 2px 2px;
+  padding: .35rem 0 .2rem;
+  font-size: clamp(1.6rem, 4.6vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.Countdown-module__9jmnQW__label {
+  border-radius: 2px 2px 10px 10px;
+  padding: .3rem 0 .35rem;
+  font-size: .75rem;
+}
+
+.Countdown-module__9jmnQW__date, .Countdown-module__9jmnQW__location, .Countdown-module__9jmnQW__live {
+  font-family: var(--font-serif, Georgia, serif);
+  margin: 0;
+  font-size: clamp(.95rem, 2.2vw, 1.15rem);
+  font-weight: 600;
+}
+
+.Countdown-module__9jmnQW__location {
+  margin-top: .25rem;
+  font-weight: 400;
+}
+
+.Countdown-module__9jmnQW__live {
+  margin: 1.6rem 0 1rem;
+  font-size: 1.5rem;
+}
+
+.Countdown-module__9jmnQW__save {
+  font-family: var(--font-graffiti, cursive);
+  color: var(--red, #d7301f);
+  text-transform: uppercase;
+  margin: .9rem 0 0;
+  font-size: clamp(1.4rem, 3.4vw, 2rem);
+  transform: rotate(-2deg);
+}
+
+/*# sourceMappingURL=web_src_styles_Countdown_module_css_1igg3k2-ikub5._.single.css.map*/
