@@ -165,7 +165,7 @@
 
 .Countdown-module__9jmnQW__save {
   font-family: var(--font-graffiti, cursive);
-  color: var(--red, #d7301f);
+  color: var(--deep-red);
   text-transform: uppercase;
   margin: .9rem 0 0;
   font-size: clamp(1.4rem, 3.4vw, 2rem);
