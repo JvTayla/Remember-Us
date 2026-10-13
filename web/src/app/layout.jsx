@@ -7,7 +7,8 @@ import '@/styles/global.css'
 
 
 const graffiti = localFont({ src: '../fonts/aAnotherTag.ttf', variable: '--font-graffiti' }) // "Save the date" font
-const display = localFont({ src: '../fonts/YESTER.ttf',variable: '--font-display',display: 'swap',}) // "EXHIBITION '26" font
+const display = localFont({ src: '../fonts/YESTER.ttf', variable: '--font-display', display: 'swap', }) // "EXHIBITION '26" font
+const title = localFont({ src: '../fonts/WhiteOnBlack.ttf', variable: '--font-title' })     // "REMEMBER US"
 
 
 
@@ -29,7 +30,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-    <body className={`${graffiti.variable} ${display.variable}`}>
+    <body className={`${graffiti.variable} ${display.variable} ${title.variable}`}>
         <Header />
         <main className="container">{children}</main>
         <Footer />

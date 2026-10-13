@@ -1,9 +1,10 @@
 /* [project]/web/src/styles/variables.css [app-client] (css) */
 :root {
-  --color-bg: #fff;
+  --color-bg: var(--white-background);
   --color-text: #111;
   --color-accent: #6c47ff;
   --color-muted: #666;
+  --white-background: #f5f5f5;
   --deep-red: #ca2f1d;
   --deep-teal: #156468;
   --light-teal: #5babaa;

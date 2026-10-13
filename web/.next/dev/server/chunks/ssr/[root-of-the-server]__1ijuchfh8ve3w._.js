@@ -36,37 +36,34 @@ const WORDS = [
     'REMEMBER',
     'US'
 ];
-// Fixed values (not random) so server and client render the same markup
+// small jitter only...the letters sit straight on the photos....
 const ROTATIONS = [
-    -3,
-    2,
     -1.5,
-    3,
-    -2,
     1,
-    -3.5,
-    2.5
+    -0.5,
+    1.5,
+    -1,
+    0.5,
+    -1.5,
+    1
 ];
 const OFFSETS = [
-    0.04,
-    -0.05,
     0.02,
-    -0.03,
-    0.05,
     -0.02,
-    0.03,
-    -0.04
+    0.01,
+    -0.015,
+    0.02,
+    -0.01,
+    0.015,
+    -0.02
 ] // em
-;
-const VARIANTS = 3 // paper / tan / ink, see CSS
 ;
 const MIN_PHOTOS = 6;
 function photoSrc(url) {
-    return `${url}?w=240&h=240&fit=crop&auto=format`;
+    return `${url}?w=360&h=240&fit=crop&auto=format`;
 }
 function RememberUsTitle({ images = [], speed }) {
     const photos = (images || []).filter((img)=>img?.url);
-    // Repeat a small set so each half of the loop is wide enough
     const group = photos.length ? Array.from({
         length: Math.ceil(MIN_PHOTOS / photos.length)
     }).flatMap(()=>photos) : [];
@@ -100,7 +97,7 @@ function RememberUsTitle({ images = [], speed }) {
                                     className: __TURBOPACK__imported__module__$5b$project$5d2f$web$2f$src$2f$styles$2f$RememberUsTitle$2e$module$2e$css__$5b$app$2d$rsc$5d$__$28$css__module$29$__["default"].photo,
                                     src: photoSrc(img.url),
                                     alt: "",
-                                    width: 240,
+                                    width: 360,
                                     height: 240
                                 }, `${copy}-${i}`, false, {
                                     fileName: "[project]/web/src/app/RememberUsTitle.jsx",
@@ -133,7 +130,6 @@ function RememberUsTitle({ images = [], speed }) {
                             const i = n++;
                             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$web$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$web$2f$src$2f$styles$2f$RememberUsTitle$2e$module$2e$css__$5b$app$2d$rsc$5d$__$28$css__module$29$__["default"].tile,
-                                "data-variant": i % VARIANTS,
                                 style: {
                                     '--r': `${ROTATIONS[i % ROTATIONS.length]}deg`,
                                     '--y': `${OFFSETS[i % OFFSETS.length]}em`

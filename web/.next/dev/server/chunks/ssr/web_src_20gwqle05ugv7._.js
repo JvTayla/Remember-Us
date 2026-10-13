@@ -62,16 +62,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$web$2f$src$2f$components$2f$
 ;
 ;
 ;
-// TODO: swap these for your real fonts later. Until then the CSS falls back to defaults.
-// const title = localFont({ src: '../fonts/YourRansomFont.woff2', variable: '--font-title' })     // "REMEMBER US"
-// const serif = localFont({
-//   src: [
-//     { path: '../fonts/YourSerifFont-Regular.woff2', weight: '400' },
-//     { path: '../fonts/YourSerifFont-Bold.woff2', weight: '700' },
-//   ],
-//   variable: '--font-serif',
-// })
-// ...then add `${title.variable} ${display.variable} ${serif.variable}` to the <body> className below.
 const siteUrl = ("TURBOPACK compile-time value", "http://localhost:3000") || 'http://localhost:3000';
 const metadata = {
     metadataBase: new URL(siteUrl),
@@ -93,7 +83,7 @@ function RootLayout({ children }) {
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$web$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$web$2f$src$2f$components$2f$layout$2f$Header$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/web/src/app/layout.jsx",
-                    lineNumber: 43,
+                    lineNumber: 33,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$web$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -101,23 +91,23 @@ function RootLayout({ children }) {
                     children: children
                 }, void 0, false, {
                     fileName: "[project]/web/src/app/layout.jsx",
-                    lineNumber: 44,
+                    lineNumber: 34,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$web$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$web$2f$src$2f$components$2f$layout$2f$Footer$2e$jsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                     fileName: "[project]/web/src/app/layout.jsx",
-                    lineNumber: 45,
+                    lineNumber: 35,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/web/src/app/layout.jsx",
-            lineNumber: 42,
+            lineNumber: 32,
             columnNumber: 5
         }, this)
     }, void 0, false, {
         fileName: "[project]/web/src/app/layout.jsx",
-        lineNumber: 41,
+        lineNumber: 31,
         columnNumber: 5
     }, this);
 }
