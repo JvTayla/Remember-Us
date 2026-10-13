@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 13, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/padif/OneDrive/Desktop/Remember-Us/web/src/app/icon.svg.mjs%20(structured%20image%20object)"],"sourcesContent":["import src from \"IMAGE\";\nexport default { src, width: 32, height: 32 }\n"],"names":["src","width","height"],"mappings":";;;;AAAA;;uCACe;IAAEA,KAAAA,8IAAG;IAAEC,OAAO;IAAIC,QAAQ;AAAG"}}]
+}

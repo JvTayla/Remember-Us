@@ -1,0 +1,20 @@
+/* [project]/web/src/styles/variables.css [app-client] (css) */
+:root {
+  --color-bg: var(--white-background);
+  --color-text: #111;
+  --color-accent: #6c47ff;
+  --color-muted: #666;
+  --white-background: #f5f5f5;
+  --deep-red: #ca2f1d;
+  --deep-teal: #156468;
+  --light-teal: #5babaa;
+  --font-body: system-ui, sans-serif;
+  --font-heading: system-ui, sans-serif;
+  --space-1: .5rem;
+  --space-2: 1rem;
+  --space-3: 2rem;
+  --space-4: 4rem;
+  --max-width: 1100px;
+}
+
+/*# sourceMappingURL=web_src_styles_variables_css_1igg3k2-ikub5._.single.css.map*/

@@ -1,9 +1,17 @@
 /* Replace these with the final theme from Figma / Pinterest board */
 :root {
+
   --color-bg: #ffffff;
   --color-text: #111111;
   --color-accent: #6c47ff;
   --color-muted: #666666;
+
+  --white-background: #F5F5F5;
+  --color-bg: var(--white-background);
+
+  --deep-red:#CA2F1D;
+  --deep-teal: #156468;
+  --light-teal: #5babaa;
 
   --font-body: system-ui, sans-serif;
   --font-heading: system-ui, sans-serif;
