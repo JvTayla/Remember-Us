@@ -1,4 +1,7 @@
-export const siteSettingsQuery = `*[_type == "siteSettings"][0]{ eventDate, eventLocation, tagline }`
+export const siteSettingsQuery = `*[_type == "siteSettings"][0]{
+  eventDate, eventLocation, tagline, marqueeSpeed,
+  "marqueeImages": marqueeImages[]{ alt, "url": asset->url }
+}`
 
 export const categoriesQuery = `*[_type == "category"] | order(order asc){ title, "slug": slug.current, subTypes }`
 
