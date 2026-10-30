@@ -22,7 +22,7 @@ export default defineType({
       ],
     }),
     defineField({
-      name: 'marqueeSpeed',
+      name: 'marqueeSpeed', 
       title: 'Marquee loop time (seconds)',
       description: 'How long one full scroll takes. Higher is slower btw',
       type: 'number',
