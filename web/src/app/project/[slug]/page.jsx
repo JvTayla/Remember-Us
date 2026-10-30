@@ -1,9 +1,9 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { sanityFetch, urlFor } from '@/lib/sanityClient'
 import { projectBySlugQuery } from '@/lib/queries'
+import { categoryTheme } from '@/lib/categoryTheme'
 import ImageGallery from '@/components/projects/ImageGallery'
-import PersonBio from '@/components/people/PersonBio'
+import TeamCircle from '@/components/people/TeamCircle'
 
 export async function generateMetadata({ params }) {
   const { slug } = await params
@@ -32,17 +32,39 @@ export default async function ProjectDetail({ params }) {
   if (!project) notFound()
 
   return (
-    <>
-      {project.category && <Link href={`/category/${project.category.slug}`}>{project.category.title}</Link>}
-      <h1>{project.title}</h1>
-      {project.subType && <p>{project.subType}</p>}
-      {project.heroImage && <img src={urlFor(project.heroImage).width(1200).url()} alt={project.title} />}
-      <h2>Overview</h2>
-      <p>{project.overview}</p>
-      {project.projectLink && <p><a href={project.projectLink} target="_blank" rel="noreferrer">View project</a></p>}
+    <div style={categoryTheme(project.category)}>
+      <section className="split split--project full-bleed bleed-top">
+        <div className="split__text">
+          <h1>{project.title}</h1>
+          {(project.shortDescription || project.subType) && (
+            <p>{project.shortDescription || project.subType}</p>
+          )}
+        </div>
+        <div className="split__art">
+          {project.heroImage && (
+            <img src={urlFor(project.heroImage).width(1400).height(800).url()} alt={project.title} />
+          )}
+        </div>
+      </section>
+
+      <section className="overview">
+        <h2>Overview</h2>
+        <p>{project.overview}</p>
+        {project.projectLink && (
+          <p><a className="button" href={project.projectLink} target="_blank" rel="noreferrer">View project</a></p>
+        )}
+      </section>
+
       <ImageGallery images={project.gallery} title={project.title} />
-      <h2>Team</h2>
-      {project.team?.map((p) => <PersonBio key={p.slug} person={p} />)}
-    </>
+
+      {project.team?.length > 0 && (
+        <section className="team">
+          <h2>Team</h2>
+          <ul className="team-list">
+            {project.team.map((p) => <TeamCircle key={p.slug} person={p} />)}
+          </ul>
+        </section>
+      )}
+    </div>
   )
 }

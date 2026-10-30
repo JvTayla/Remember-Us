@@ -1,21 +1,13 @@
 import Link from 'next/link'
-import { sanityFetch } from '@/lib/sanityClient'
-import { categoriesQuery } from '@/lib/queries'
 
-export default async function Header() {
-  const categories = await sanityFetch(categoriesQuery)
-
+export default function Header() {
   return (
     <header className="site-header">
-      <div className="container">
-        <nav>
-          <Link href="/" className="brand">Remember Us</Link>
-          {categories?.map((c) => (
-            <Link key={c.slug} href={`/category/${c.slug}`}>{c.title}</Link>
-          ))}
-          <Link href="/about">About</Link>
-        </nav>
-      </div>
+      <nav aria-label="Main">
+        <Link href="/">Home</Link>
+        <Link href="/about">About</Link>
+        <Link href="/archive">Archive</Link>
+      </nav>
     </header>
   )
 }

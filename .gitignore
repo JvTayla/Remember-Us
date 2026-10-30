@@ -6,3 +6,6 @@ dist/
 *.log
 .sanity/
 .vscode/
+.next/
+.vercel/
+next-env.d.ts
