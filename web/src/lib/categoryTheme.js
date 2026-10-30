@@ -4,7 +4,8 @@ const THEMES = [
   { match: /anim/i,           panel: '#d9d9d9', panelInk: '#0d0d0d', accent: '#ffbbba', accentInk: '#0d0d0d', art: '#ca2f1d' },
   { match: /game/i,           panel: '#0d0d0d', panelInk: '#ffffff', accent: '#ca2f1d', accentInk: '#ffffff', art: '#680000' },
   { match: /\bai\b|im\b/i,    panel: '#680000', panelInk: '#ffffff', accent: '#a2a2a2', accentInk: '#0d0d0d', art: '#0d0d0d' },
-  { match: /visual|narrat/i,  panel: '#5babaa', panelInk: '#0d0d0d', accent: '#ffffff', accentInk: '#0d0d0d', art: '#156468' },
+  { match: /narrat/i,        panel: '#ca2f1d', panelInk: '#ffffff', accent: '#ffffff', accentInk: '#0d0d0d', art: '#680000' },
+  { match: /visual/i,         panel: '#5babaa', panelInk: '#0d0d0d', accent: '#ffffff', accentInk: '#0d0d0d', art: '#156468' },
   { match: /vr|xr/i,          panel: '#a2a2a2', panelInk: '#0d0d0d', accent: '#5babaa', accentInk: '#0d0d0d', art: '#ca2f1d' },
 ]
 

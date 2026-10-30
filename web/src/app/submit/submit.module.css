@@ -1,52 +1,175 @@
-.wrap { max-width: 680px; margin: var(--space-3) auto var(--space-4); }
-.heading { font-size: clamp(2.2rem, 7vw, 3.4rem); margin-bottom: var(--space-1); }
-.lead { color: var(--color-muted); margin-bottom: var(--space-3); }
+.wrap {
+  max-width: 680px;
+  margin: var(--space-3) auto var(--space-4);
+}
+.heading {
+  font-size: clamp(2.2rem, 7vw, 3.4rem);
+  margin-bottom: var(--space-1);
+}
+.lead {
+  color: var(--color-muted);
+  margin-bottom: var(--space-3);
+}
 
-.form { display: grid; gap: var(--space-3); }
-.form fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
-.form legend { font-family: var(--font-serif); font-size: 1.6rem; color: var(--deep-red); padding: 0 0 var(--space-1); border-bottom: 2px solid var(--ink); width: 100%; margin-bottom: var(--space-2); }
+.form {
+  display: grid;
+  gap: var(--space-3);
+}
+.form fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+.form legend {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--deep-red);
+  padding: 0 0 var(--space-1);
+  border-bottom: 2px solid var(--ink);
+  width: 100%;
+  margin-bottom: var(--space-2);
+}
 
-.field { display: grid; gap: 0.25rem; position: relative; }
-.field label { font-weight: 600; }
-.req { color: var(--deep-red); }
-.opt { font-weight: 400; color: var(--color-muted); font-size: 0.875rem; }
-.hint { color: var(--color-muted); font-size: 0.875rem; margin: 0; }
+.field {
+  display: grid;
+  gap: 0.25rem;
+  position: relative;
+}
+.field label {
+  font-weight: 600;
+}
+.req {
+  color: var(--deep-red);
+}
+.opt {
+  font-weight: 400;
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
+.hint {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  margin: 0;
+}
 
-.field input[type='text'], .field input[type='email'], .field input[type='url'],
-.field select, .field textarea {
-  font: inherit; font-size: 1rem; /* 16px+ stops iOS zooming on focus */
-  padding: 0.7rem 0.8rem; width: 100%;
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="url"],
+.field select,
+.field textarea {
+  font: inherit;
+  font-size: 1rem; /* 16px+ stops iOS zooming on focus */
+  padding: 0.7rem 0.8rem;
+  width: 100%;
   background: rgba(255, 255, 255, 0.6);
-  border: 2px solid var(--ink); border-radius: 0;
+  border: 2px solid var(--ink);
+  border-radius: 0;
 }
-.field textarea { resize: vertical; }
-.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible,
-.submit:focus-visible, .secondary:focus-visible, .check input:focus-visible {
-  outline: 3px solid var(--deep-teal); outline-offset: 2px;
+.field textarea {
+  resize: vertical;
 }
-.field [aria-invalid='true'] { border-color: var(--deep-red); background: #fff1ef; }
-.error { color: #a31f10; font-size: 0.9rem; font-weight: 600; margin: 0; }
-.count { font-size: 0.8rem; color: var(--color-muted); justify-self: end; }
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible,
+.submit:focus-visible,
+.secondary:focus-visible,
+.check input:focus-visible {
+  outline: 3px solid var(--deep-teal);
+  outline-offset: 2px;
+}
+.field [aria-invalid="true"] {
+  border-color: var(--deep-red);
+  background: #fff1ef;
+}
+.error {
+  color: #a31f10;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+}
+.count {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  justify-self: end;
+}
 
-.check { display: flex; gap: 0.75rem; align-items: flex-start; font-weight: 400 !important; }
-.check input { width: 1.25rem; height: 1.25rem; margin-top: 0.2rem; accent-color: var(--deep-red); flex: none; }
+.check {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  font-weight: 400 !important;
+}
+.check input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.2rem;
+  accent-color: var(--deep-red);
+  flex: none;
+}
 
-.formError { background: var(--red); color: #fff; padding: 0.75rem 1rem; font-weight: 600; margin: 0 0 0.5rem; }
+.formError {
+  background: var(--red);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
 
 /* Same black rounded button as the countdown tiles */
 .submit {
-  font: inherit; font-family: var(--font-serif); font-size: 1.25rem;
-  background: var(--ink); color: #fff; border: 0; border-radius: var(--radius);
-  padding: 0.9rem 1.75rem; cursor: pointer; justify-self: start;
+  font: inherit;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  background: var(--ink);
+  color: #fff;
+  border: 0;
+  border-radius: var(--radius);
+  padding: 0.9rem 1.75rem;
+  cursor: pointer;
+  justify-self: start;
 }
-.submit:hover:not(:disabled) { background: var(--deep-red); }
-.submit:disabled { opacity: 0.6; cursor: progress; }
+.submit:hover:not(:disabled) {
+  background: var(--deep-red);
+}
+.submit:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
 
-.success { background: rgba(255, 255, 255, 0.6); border: 2px solid var(--ink); padding: var(--space-3); display: grid; gap: var(--space-2); }
-.success h2 { color: var(--deep-red); margin: 0; }
-.secondary { font: inherit; background: none; border: 2px solid var(--ink); border-radius: var(--radius); padding: 0.6rem 1rem; cursor: pointer; justify-self: start; }
+.success {
+  background: rgba(255, 255, 255, 0.6);
+  border: 2px solid var(--ink);
+  padding: var(--space-3);
+  display: grid;
+  gap: var(--space-2);
+}
+.success h2 {
+  color: var(--deep-red);
+  margin: 0;
+}
+.secondary {
+  font: inherit;
+  background: none;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  justify-self: start;
+}
 
 /* Visually hidden but still in the DOM, so bots fill it in */
-.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
-@media (prefers-reduced-motion: no-preference) { .submit { transition: background 0.15s; } }
+@media (prefers-reduced-motion: no-preference) {
+  .submit {
+    transition: background 0.15s;
+  }
+}

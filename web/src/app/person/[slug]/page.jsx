@@ -1,16 +1,18 @@
-import { notFound } from 'next/navigation'
-import { sanityFetch, urlFor } from '@/lib/sanityClient'
-import { personBySlugQuery } from '@/lib/queries'
-import PersonBio from '@/components/people/PersonBio'
-import ProjectGrid from '@/components/projects/ProjectGrid'
+import { notFound } from "next/navigation";
+import { sanityFetch, urlFor } from "@/lib/sanityClient";
+import { personBySlugQuery } from "@/lib/queries";
+import PersonBio from "@/components/people/PersonBio";
+import ProjectGrid from "@/components/projects/ProjectGrid";
 
 export async function generateMetadata({ params }) {
-  const { slug } = await params
-  const person = await sanityFetch(personBySlugQuery, { slug })
-  if (!person) return {}
+  const { slug } = await params;
+  const person = await sanityFetch(personBySlugQuery, { slug });
+  if (!person) return {};
 
-  const description = person.bio?.slice(0, 160)
-  const image = person.photo ? urlFor(person.photo).width(600).height(600).url() : null
+  const description = person.bio?.slice(0, 160);
+  const image = person.photo
+    ? urlFor(person.photo).width(600).height(600).url()
+    : null;
 
   return {
     title: person.name,
@@ -20,14 +22,14 @@ export async function generateMetadata({ params }) {
       description,
       images: image ? [{ url: image }] : [],
     },
-  }
+  };
 }
 
 export default async function Person({ params }) {
-  const { slug } = await params
-  const person = await sanityFetch(personBySlugQuery, { slug })
+  const { slug } = await params;
+  const person = await sanityFetch(personBySlugQuery, { slug });
 
-  if (!person) notFound()
+  if (!person) notFound();
 
   return (
     <>
@@ -35,5 +37,5 @@ export default async function Person({ params }) {
       <h2>Projects</h2>
       <ProjectGrid projects={person.projects} />
     </>
-  )
+  );
 }

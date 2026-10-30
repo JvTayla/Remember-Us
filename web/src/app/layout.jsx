@@ -7,21 +7,21 @@ import "@/styles/variables.css";
 import "@/styles/global.css";
 
 const graffiti = localFont({
-  src: "web\\src\\fonts\\aAnotherTag.ttf",
+  src: "../fonts/aAnotherTag.ttf",
   variable: "--font-graffiti",
 }); // "Save the date" font
 const display = localFont({
-  src: "web\\src\\fonts\\YESTER.ttf",
+  src: "../fonts/YESTER.ttf",
   variable: "--font-display",
   display: "swap",
 }); // "EXHIBITION '26" font
 const title = localFont({
-  src: "web\\src\\fonts\\WhiteOnBlack.ttf",
+  src: "../fonts/WhiteOnBlack.ttf",
   variable: "--font-title",
 }); // "REMEMBER US"
 
 // Closest Google fonts to the mockup: serif for nav/headings/countdown, Inter for body.
-
+// If Figma uses different ones, change them here and nowhere else.
 const serif = DM_Serif_Display({
   weight: "400",
   subsets: ["latin"],

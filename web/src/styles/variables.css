@@ -1,16 +1,16 @@
 /* Colours sampled directly from the keeps.png mockup */
 :root {
-  --paper: #e3e2c4;        /* cream page background */
+  --paper: #e3e2c4; /* cream page background */
   --ink: #0d0d0d;
-  --red: #ff0000;          /* footer + About band */
-  --deep-red: #ca2f1d;     /* printed-building red, stripes, accents */
+  --red: #ff0000; /* footer + About band */
+  --deep-red: #ca2f1d; /* printed-building red, stripes, accents */
   --maroon: #680000;
   --teal: #5babaa;
   --deep-teal: #156468;
   --light-teal: #5babaa;
-  --grey-panel: #d9d9d9;   /* Animation header panel */
+  --grey-panel: #d9d9d9; /* Animation header panel */
   --grey: #a2a2a2;
-  --pink: #ffbbba;         /* Project hero panel */
+  --pink: #ffbbba; /* Project hero panel */
 
   --color-bg: var(--paper);
   --color-text: var(--ink);

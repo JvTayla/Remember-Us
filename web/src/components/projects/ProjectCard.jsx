@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { urlFor } from '@/lib/sanityClient'
+import Link from "next/link";
+import { urlFor } from "@/lib/sanityClient";
 
 export default function ProjectCard({ project }) {
   return (
@@ -11,9 +11,13 @@ export default function ProjectCard({ project }) {
       </div>
       <div className="project-card__art">
         {project.heroImage && (
-          <img src={urlFor(project.heroImage).width(900).height(600).url()} alt="" loading="lazy" />
+          <img
+            src={urlFor(project.heroImage).width(900).height(600).url()}
+            alt=""
+            loading="lazy"
+          />
         )}
       </div>
     </Link>
-  )
+  );
 }
