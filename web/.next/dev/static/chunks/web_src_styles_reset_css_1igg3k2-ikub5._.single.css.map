@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/web/src/styles/reset.css"],"sourcesContent":["*, *::before, *::after { box-sizing: border-box; }\r\nbody, h1, h2, h3, p, figure { margin: 0; }\r\nimg { max-width: 100%; display: block; }\r\na { color: inherit; }\r\n"],"names":[],"mappings":"AAAA;;;;AACA;;;;AACA;;;;;AACA"}}]
-}

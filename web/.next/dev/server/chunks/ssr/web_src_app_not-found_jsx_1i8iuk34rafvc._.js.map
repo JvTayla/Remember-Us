@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/padif/OneDrive/Desktop/Remember-Us/web/src/app/not-found.jsx"],"sourcesContent":["import Link from 'next/link'\r\n\r\nexport default function NotFound() {\r\n  return (\r\n    <>\r\n      <h1>Page not found</h1>\r\n      <Link href=\"/\">Back to home</Link>\r\n    </>\r\n  )\r\n}\r\n"],"names":["NotFound","href"],"mappings":";;;;;AAAA;;;AAEe,SAASA;IACtB,qBACE;;0BACE,qPAAC;0BAAG;;;;;;0BACJ,qPAAC,iMAAI;gBAACC,MAAK;0BAAI;;;;;;;;;;;;AAGrB"}}]
-}
