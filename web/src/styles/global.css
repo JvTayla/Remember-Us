@@ -8,8 +8,12 @@ body {
   --font-category:
     var(--font-display), Impact, sans-serif; /* ANIMATION / Project A titles */
 
-  background: var(--paper) url("/textured-bg.jpg") center / cover no-repeat
-    fixed;
+  background-color: var(--paper);
+  background-image: url("/textured-bg.jpg");
+  background-repeat: repeat;
+  background-position: top left;
+  background-size: auto;
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-body);
   line-height: 1.55;
