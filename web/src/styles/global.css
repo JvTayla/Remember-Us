@@ -1,4 +1,11 @@
 /* ---------- Base ---------- */
+html {
+  background-color: var(--paper);
+  background-image: url("/textured-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100%;
+}
 body {
   --font-serif:
     var(--font-dm-serif), Georgia, serif; /* nav, headings, countdown */
@@ -8,12 +15,7 @@ body {
   --font-category:
     var(--font-display), Impact, sans-serif; /* ANIMATION / Project A titles */
 
-  background-color: var(--paper);
-  background-image: url("/textured-bg.jpg");
-  background-repeat: repeat;
-  background-position: top left;
-  background-size: auto;
-  background-attachment: fixed;
+  background: transparent;
   color: var(--ink);
   font-family: var(--font-body);
   line-height: 1.55;
@@ -21,6 +23,16 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100svh;
+}
+
+/* Texture layer: covers the whole screen and stays put while scrolling */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("/textured-bg.jpg") center / cover no-repeat;
 }
 main {
   flex: 1;
