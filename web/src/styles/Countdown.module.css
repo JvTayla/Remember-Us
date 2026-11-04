@@ -49,6 +49,32 @@
   font-weight: 600;
 }
 
+/* Clickable date: opens a small "add to calendar" menu */
+.cal summary {
+  cursor: pointer;
+  list-style: none;
+  text-decoration: underline dotted;
+  text-underline-offset: 0.25em;
+}
+.cal summary::-webkit-details-marker {
+  display: none;
+}
+.calMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0.4rem 0;
+  font-family: var(--font-inter, sans-serif);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+.calMenu a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
 .location {
   margin-top: 0.25rem;
   font-weight: 400;
