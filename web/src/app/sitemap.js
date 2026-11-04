@@ -1,8 +1,11 @@
 import { sanityFetch } from "@/lib/sanityClient";
+import { LANDING_ONLY } from "@/lib/siteMode";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export default async function sitemap() {
+  if (LANDING_ONLY) return [{ url: siteUrl }];
+
   const [categories, projects, people] = await Promise.all([
     sanityFetch(`*[_type == "category"]{ "slug": slug.current }`),
     sanityFetch(`*[_type == "project"]{ "slug": slug.current }`),

@@ -3,6 +3,7 @@ import Image from "next/image";
 import ProjectGrid from "@/components/projects/ProjectGrid";
 import { sanityFetch } from "@/lib/sanityClient";
 import { siteSettingsQuery, projectsQuery } from "@/lib/queries";
+import { LANDING_ONLY } from "@/lib/siteMode";
 import building from "@/assets/building.png";
 import RememberUsTitle from "./RememberUsTitle";
 
@@ -11,7 +12,7 @@ import styles from "@/styles/home.module.css";
 export default async function Home() {
   const [settings, projects] = await Promise.all([
     sanityFetch(siteSettingsQuery),
-    sanityFetch(projectsQuery),
+    LANDING_ONLY ? Promise.resolve([]) : sanityFetch(projectsQuery),
   ]);
 
   return (
@@ -38,12 +39,16 @@ export default async function Home() {
           src={building}
           alt=""
           priority
-          sizes="(max-width: 720px) 62vw, 35vw"
+          sizes="(max-width: 720px) 60vw, (max-width: 1279px) 40vw, 35vw"
         />
       </section>
 
-      <h2>Projects</h2>
-      <ProjectGrid projects={projects} />
+      {!LANDING_ONLY && (
+        <>
+          <h2>Projects</h2>
+          <ProjectGrid projects={projects} />
+        </>
+      )}
     </>
   );
 }

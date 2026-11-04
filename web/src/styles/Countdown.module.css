@@ -10,7 +10,7 @@
 }
 
 .tile {
-  width: clamp(60px, 11vw, 90px);
+  width: clamp(58px, 18vw, 90px);
   display: flex;
   flex-direction: column;
   gap: 3px;
@@ -28,7 +28,7 @@
 .num {
   padding: 0.35rem 0 0.2rem;
   border-radius: 10px 10px 2px 2px;
-  font-size: clamp(1.6rem, 4.6vw, 2.3rem);
+  font-size: clamp(1.5rem, 6.5vw, 2.3rem);
   font-weight: 700;
   line-height: 1.15;
   font-variant-numeric: tabular-nums;
@@ -49,30 +49,58 @@
   font-weight: 600;
 }
 
-/* Clickable date: opens a small "add to calendar" menu */
+/* Clickable date: opens a small "add to calendar" menu.
+   Everything here is sized for thumbs first (44px minimum tap targets). */
 .cal summary {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.4rem 0.5rem;
   cursor: pointer;
   list-style: none;
-  text-decoration: underline dotted;
-  text-underline-offset: 0.25em;
 }
 .cal summary::-webkit-details-marker {
   display: none;
 }
+.dateText {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.25em;
+}
+.calHint {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--font-inter, sans-serif);
+  font-size: 0.8rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
 .calMenu {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.25rem;
-  margin: 0.4rem 0;
+  gap: 0.5rem;
+  width: min(100%, 20rem);
+  margin: 0.4rem auto 0.8rem;
   font-family: var(--font-inter, sans-serif);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 400;
 }
 .calMenu a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--ink, #0d0d0d);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.35);
   color: inherit;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-decoration: none;
+}
+.calMenu a:hover,
+.calMenu a:focus-visible {
+  background: var(--ink, #0d0d0d);
+  color: #fff;
 }
 
 .location {
@@ -91,6 +119,18 @@
 .live {
   font-size: 1.5rem;
   margin: 1.6rem 0 1rem;
+}
+
+/* Bigger screens: the two calendar buttons sit side by side */
+@media (min-width: 560px) {
+  .calMenu {
+    flex-direction: row;
+    justify-content: center;
+    width: auto;
+  }
+  .calMenu a {
+    padding: 0.5rem 1.25rem;
+  }
 }
 
 .save {

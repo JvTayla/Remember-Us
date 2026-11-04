@@ -47,7 +47,7 @@ function Tile({ value, label }) {
   );
 }
 
-export default function Countdown({ eventDate, eventLocation, eventMapUrl }) {
+export default function Countdown({ eventDate, eventLocation, eventMapUrl, eventMapUrl }) {
   // null until mounted, so server and client markup match
   const [time, setTime] = useState(null);
 
@@ -90,12 +90,11 @@ export default function Countdown({ eventDate, eventLocation, eventMapUrl }) {
       )}
 
       <details className={styles.cal}>
-        <summary
-          className={styles.date}
-          title="Add to calendar"
-          suppressHydrationWarning
-        >
-          {dateLine}
+        <summary className={styles.date}>
+          <span className={styles.dateText} suppressHydrationWarning>
+            {dateLine}
+          </span>
+          <span className={styles.calHint}>+ Add to calendar</span>
         </summary>
         <div className={styles.calMenu}>
           <a
