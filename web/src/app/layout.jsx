@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import { DM_Serif_Display, Inter } from "next/font/google";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { LANDING_ONLY } from "@/lib/siteMode";
 import "@/styles/reset.css";
 import "@/styles/variables.css";
 import "@/styles/global.css";
@@ -56,9 +57,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${graffiti.variable} ${display.variable} ${title.variable} ${serif.variable} ${inter.variable}`}
       >
-        <Header />
+        {!LANDING_ONLY && <Header />}
         <main className="container">{children}</main>
-        <Footer />
+        {!LANDING_ONLY && <Footer />}
       </body>
     </html>
   );
