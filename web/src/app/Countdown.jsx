@@ -47,7 +47,7 @@ function Tile({ value, label }) {
   );
 }
 
-export default function Countdown({ eventDate, eventLocation, eventMapUrl, eventMapUrl }) {
+export default function Countdown({ eventDate, eventLocation, eventMapUrl }) {
   // null until mounted, so server and client markup match
   const [time, setTime] = useState(null);
 
