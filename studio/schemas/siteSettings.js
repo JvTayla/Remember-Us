@@ -9,6 +9,14 @@ export default defineType({
     defineField({ name: 'eventDate', title: 'Exhibition date and time', type: 'datetime' }),
     defineField({ name: 'eventLocation', title: 'Exhibition location', type: 'string' }),
     defineField({
+      name: 'eventMapUrl',
+      title: 'Map link (optional)',
+      description:
+        'Paste a Google Maps share link. If left empty, the location text above is used to search Google Maps.',
+      type: 'url',
+      validation: (r) => r.uri({ scheme: ['https'] }),
+    }),
+    defineField({
       name: 'marqueeImages',
       title: 'Title marquee images',
       description: 'Photos that scroll behind the "REMEMBER US" title on the home page.',
