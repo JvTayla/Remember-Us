@@ -1,6 +1,6 @@
 /* Colours sampled directly from the keeps.png mockup */
 :root {
-  --paper: #e3e2c4; /* cream page background */
+  --paper: #f4f1ea; /* page background: warm off-white (was olive cream #e3e2c4) */
   --ink: #0d0d0d;
   --red: #ff0000; /* footer + About band */
   --deep-red: #ca2f1d; /* printed-building red, stripes, accents */

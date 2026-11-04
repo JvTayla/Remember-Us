@@ -90,12 +90,11 @@ export default function Countdown({ eventDate, eventLocation, eventMapUrl }) {
       )}
 
       <details className={styles.cal}>
-        <summary
-          className={styles.date}
-          title="Add to calendar"
-          suppressHydrationWarning
-        >
-          {dateLine}
+        <summary className={styles.date}>
+          <span className={styles.dateText} suppressHydrationWarning>
+            {dateLine}
+          </span>
+          <span className={styles.calHint}>+ Add to calendar</span>
         </summary>
         <div className={styles.calMenu}>
           <a

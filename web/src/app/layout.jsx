@@ -56,6 +56,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={`${graffiti.variable} ${display.variable} ${title.variable} ${serif.variable} ${inter.variable}`}
+        // No nav bar in landing-only mode, so no space reserved for it
+        style={LANDING_ONLY ? { "--header-h": "0px" } : undefined}
       >
         {!LANDING_ONLY && <Header />}
         <main className="container">{children}</main>

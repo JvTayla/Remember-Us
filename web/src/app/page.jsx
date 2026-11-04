@@ -39,7 +39,7 @@ export default async function Home() {
           src={building}
           alt=""
           priority
-          sizes="(max-width: 720px) 62vw, 35vw"
+          sizes="(max-width: 720px) 60vw, (max-width: 1279px) 40vw, 35vw"
         />
       </section>
 

@@ -1,3 +1,6 @@
+/* Mobile-first: the base rules are the phone layout, then media queries
+   add the wider layouts. */
+
 .hero {
   position: relative;
   overflow: hidden;
@@ -5,31 +8,23 @@
   margin-left: calc(50% - 50vw);
   min-height: calc(100svh - var(--header-h, 2.4rem));
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .content {
   position: relative;
   z-index: 2;
   width: min(100%, 640px);
-  padding: clamp(3rem, 9vh, 6rem) 1.25rem 4rem;
+  padding: clamp(2rem, 7vh, 6rem) max(1.25rem, env(safe-area-inset-left)) 0.75rem
+    max(1.25rem, env(safe-area-inset-right));
   text-align: center;
-}
-
-.title {
-  margin: 0;
-  font-family: var(--font-title, Impact, sans-serif);
-  font-weight: 400;
-  font-size: clamp(2.6rem, 8vw, 5rem);
-  line-height: 1;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
 }
 
 .exhibition {
   margin: 0.6rem 0 0;
   font-family: var(--font-display, Impact, sans-serif);
-  font-size: clamp(2rem, 6vw, 3.4rem);
+  font-size: clamp(2rem, 9vw, 3.4rem);
   line-height: 1;
   text-transform: uppercase;
 }
@@ -37,26 +32,57 @@
 .tagline {
   margin: 0.9rem 0 0;
   font-family: var(--font-serif, Georgia, serif);
-  font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+  font-size: clamp(1.05rem, 4.2vw, 1.4rem);
   font-weight: 600;
 }
 
+/* Phone: the building sits under the text, bottom right, with its lower
+   part cropped by the edge of the screen so the page fits one screen. */
 .building {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  right: -2vw;
-  bottom: 0;
-  width: min(35vw, 600px);
+  align-self: flex-end;
+  margin: auto -10vw -36vw 0;
+  width: min(60vw, 320px);
   height: auto;
   pointer-events: none;
   user-select: none;
 }
 
-@media (max-width: 720px) {
+/* Tall phones have room to show more of it. */
+@media (max-width: 720px) and (min-height: 760px) {
   .building {
-    width: 62vw;
-    right: -14vw;
-    bottom: -4vh;
-    opacity: 0.85;
+    width: min(66vw, 340px);
+    margin-bottom: -8vw;
+  }
+}
+
+/* Tablet and small laptop: still stacked, just bigger. */
+@media (min-width: 721px) {
+  .content {
+    padding-top: clamp(3rem, 9vh, 6rem);
+  }
+  .building {
+    margin: auto -4vw -8vw 0;
+    width: min(40vw, 420px);
+  }
+}
+
+/* Wide screens: the building is tucked into the right edge, behind the text. */
+@media (min-width: 1280px) {
+  .hero {
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+  }
+  .content {
+    padding-bottom: 4rem;
+  }
+  .building {
+    position: absolute;
+    right: -2vw;
+    bottom: 0;
+    margin: 0;
+    width: min(32vw, 600px);
   }
 }

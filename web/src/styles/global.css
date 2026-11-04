@@ -1,9 +1,8 @@
 /* ---------- Base ---------- */
+/* Plain background (the paper texture was removed). Change the colour with
+   --paper in variables.css. */
 html {
   background-color: var(--paper);
-  background-image: url("/textured-bg.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
   min-height: 100%;
 }
 body {
@@ -25,15 +24,6 @@ body {
   min-height: 100svh;
 }
 
-/* Texture layer: covers the whole screen and stays put while scrolling */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: url("/textured-bg.jpg") center / cover no-repeat;
-}
 main {
   flex: 1;
   padding-top: var(--header-h);

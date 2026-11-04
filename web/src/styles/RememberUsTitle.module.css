@@ -6,7 +6,7 @@
   padding: 0.1em 0.18em;
   font-family: var(--font-title, Impact, sans-serif);
   font-weight: 400;
-  font-size: clamp(2rem, 8vw, 4.5rem);
+  font-size: clamp(2.2rem, 11vw, 4.5rem);
   line-height: 1;
   filter: drop-shadow(0 0.03em 0.06em rgba(0, 0, 0, 0.25));
 }
