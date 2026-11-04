@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import styles from "@/styles/Countdown.module.css";
+import { googleCalendarUrl } from "@/lib/calendar";
 
 const TZ = "Africa/Johannesburg";
 
@@ -88,9 +89,27 @@ export default function Countdown({ eventDate, eventLocation, eventMapUrl }) {
         </div>
       )}
 
-      <p className={styles.date} suppressHydrationWarning>
-        {dateLine}
-      </p>
+      <details className={styles.cal}>
+        <summary
+          className={styles.date}
+          title="Add to calendar"
+          suppressHydrationWarning
+        >
+          {dateLine}
+        </summary>
+        <div className={styles.calMenu}>
+          <a
+            href={googleCalendarUrl({ eventDate, eventLocation })}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Add to Google Calendar
+          </a>
+          <a href="/event.ics" download>
+            Add to Apple / Outlook (.ics)
+          </a>
+        </div>
+      </details>
       {eventLocation && (
         <p className={styles.location}>
           <a
