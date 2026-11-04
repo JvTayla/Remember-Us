@@ -30,6 +30,7 @@ export default async function Home() {
           <Countdown
             eventDate={settings?.eventDate}
             eventLocation={settings?.eventLocation}
+            eventMapUrl={settings?.eventMapUrl}
           />
         </div>
 

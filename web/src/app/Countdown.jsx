@@ -46,7 +46,7 @@ function Tile({ value, label }) {
   );
 }
 
-export default function Countdown({ eventDate, eventLocation }) {
+export default function Countdown({ eventDate, eventLocation, eventMapUrl }) {
   // null until mounted, so server and client markup match
   const [time, setTime] = useState(null);
 
@@ -91,7 +91,20 @@ export default function Countdown({ eventDate, eventLocation }) {
       <p className={styles.date} suppressHydrationWarning>
         {dateLine}
       </p>
-      {eventLocation && <p className={styles.location}>{eventLocation}</p>}
+      {eventLocation && (
+        <p className={styles.location}>
+          <a
+            href={
+              eventMapUrl ||
+              `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(eventLocation)}`
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {eventLocation}
+          </a>
+        </p>
+      )}
       {!t.done && <p className={styles.save}>Save the date</p>}
     </>
   );

@@ -1,5 +1,5 @@
 export const siteSettingsQuery = `*[_type == "siteSettings"][0]{
-  eventDate, eventLocation, tagline, marqueeSpeed,
+  eventDate, eventLocation, eventMapUrl, tagline, marqueeSpeed,
   "marqueeImages": marqueeImages[]{ alt, "url": asset->url }
 }`;
 
