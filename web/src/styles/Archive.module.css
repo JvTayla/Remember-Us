@@ -1,0 +1,224 @@
+.page {
+    --r: clamp(1.5rem, 3vw, 2.75rem);           /* folder corner radius */
+    --tab-w: clamp(48px, 4.5vw, 82px);          /* width of the side tabs */
+    padding-top: clamp(5.5rem, 9vw, 7.5rem);    /* clears the nav bar */
+  }
+  
+  /* ---------- Heading ---------- */
+  .header {
+    padding: 0 1rem;
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+    text-align: center;
+  }
+  .title {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.5rem, 2vw, 1.5rem);
+    margin: 0;
+    font-family: var(--font-body, Inter, system-ui, sans-serif);
+    font-weight: 900;
+    font-size: clamp(2.5rem, 8vw, 6.5rem);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: #000;
+  }
+  .asterisk {
+    flex: none;
+    width: 0.95em;
+    height: 0.95em;
+    color: #b71c17;
+  }
+  .lead {
+    max-width: 56rem;
+    margin: 0.75rem auto 0;
+    font-size: clamp(0.7rem, 1.3vw, 0.9rem);
+    line-height: 1.5;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .empty {
+    text-align: center;
+  }
+  
+  /* ---------- Folders ---------- */
+  /* Break out of the centred page column so the folders use the full screen */
+  .stage {
+    width: 100vw;
+    max-width: none;
+    margin-inline: calc(50% - 50vw);
+  }
+  .folders {
+    display: flex;
+    box-sizing: border-box;
+    width: min(1320px, 92%);
+    margin-inline: auto;
+    padding-left: var(--tab-w); /* room for the first folder's tab */
+  }
+  
+  .folder {
+    --fb-bg: #b71c17;
+    --fb-fg: #000;
+    position: relative;
+    box-sizing: border-box;
+    /* visible strip + the radius that tucks under the next folder */
+    flex: 0 0 calc(
+      max(min(11%, var(--strip-share, 11%)), calc(var(--tab-w) + 1.25rem)) + var(--r)
+    );
+    margin-right: calc(-1 * var(--r));
+    min-height: clamp(28rem, 48vw, 46rem);
+    background: var(--folder-bg, var(--fb-bg));
+    color: var(--folder-fg, var(--fb-fg));
+    border-radius: var(--r) 0 0 0;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .folder:nth-child(3n + 2) { --fb-bg: #1a5456; }
+  .folder:nth-child(3n + 3) { --fb-bg: #509c99; }
+  
+  .folder:focus-visible {
+    outline: 3px solid #000;
+    outline-offset: -6px;
+  }
+  @media (hover: hover) {
+    .folder:hover { transform: translateY(-8px); }
+  }
+  
+  /* The front (last) folder is the big one */
+  .front {
+    flex: 1 1 0;
+    min-width: 0;
+    margin-right: 0;
+    padding: 2rem 2.25rem;
+    border-radius: var(--r) var(--r) 0 0;
+  }
+  
+  /* ---------- Tabs ---------- */
+  .tab {
+    position: absolute;
+    right: 100%;                 /* sits just left of its folder, over the previous strip */
+    top: 18%;
+    width: var(--tab-w);
+    height: 44%;
+    display: flex;
+    justify-content: center;
+    background: inherit;
+    color: inherit;
+    border-radius: calc(var(--tab-w) * 0.45) 0 0 calc(var(--tab-w) * 0.45);
+  }
+  .folder:nth-child(even) .tab { top: 41%; }
+  
+  .tabText {
+    box-sizing: border-box;
+    max-height: 100%;
+    padding: 1.25rem 0;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);   /* reads bottom to top */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: var(--font-display, inherit);
+    font-weight: 900;
+    font-style: italic;
+    font-size: calc(var(--tab-w) * 0.46);
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  
+  /* ---------- Folder contents ---------- */
+  .count {
+    position: absolute;
+    left: 0.9rem;
+    bottom: 1.1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .frontTitle {
+    display: block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    font-family: var(--font-display, inherit);
+    font-weight: 900;
+    font-style: italic;
+    font-size: clamp(2rem, 5.5vw, 5rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+  .front .count {
+    left: 2.25rem;
+    bottom: 2rem;
+    font-size: 1rem;
+  }
+  .cta {
+    position: absolute;
+    right: 2.25rem;
+    bottom: 2rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .front:hover .cta { text-decoration: underline; }
+  
+  /* ---------- Phones: folders stack vertically ---------- */
+  @media (max-width: 720px) {
+    .folders {
+      flex-direction: column;
+      width: calc(100% - 1.5rem);
+      padding-left: 0;
+    }
+    .folder {
+      flex: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      min-height: 0;
+      margin-right: 0;
+      margin-top: calc(var(--r) * -0.6); /* each folder overlaps the one before */
+      padding: 1.1rem 1.25rem 2.5rem;    /* bottom padding hides under the next folder */
+      border-radius: var(--r) var(--r) 0 0;
+    }
+    .folder:first-child { margin-top: 0; }
+  
+    .tab {
+      position: static;
+      width: auto;
+      height: auto;
+      display: block;
+      background: transparent;
+      border-radius: 0;
+    }
+    .tabText {
+      max-height: none;
+      padding: 0;
+      writing-mode: horizontal-tb;
+      transform: none;
+      font-size: 1.4rem;
+    }
+    .count {
+      position: static;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+    .frontTitle { display: none; }
+  
+    .front {
+      flex-wrap: wrap;
+      align-content: space-between;
+      min-height: 11rem;
+      padding: 1.25rem 1.25rem 1.5rem;
+    }
+    .front .tab { flex: 1 0 100%; }
+    .front .count { font-size: 0.95rem; }
+    .cta {
+      position: static;
+      margin-left: auto;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .folder { transition: none; }
+  }
