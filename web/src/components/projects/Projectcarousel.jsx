@@ -1,7 +1,7 @@
 "use client";
 
 import { Children, useCallback, useEffect, useRef, useState } from "react";
-import styles from "./ProjectCarousel.module.css";
+import styles from "@/styles/Projectcarousel.module.css";
 
 // Above this many slides, phones show a "3 / 12" counter instead of dots.
 const MAX_MOBILE_DOTS = 7;
