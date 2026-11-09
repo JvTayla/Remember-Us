@@ -1,5 +1,5 @@
 .carousel {
-    --card-w: clamp(160px, 12.5vw, 220px);
+    --card-w: clamp(200px, 17vw, 300px);
     --gap: clamp(0.75rem, 2vw, 2rem);
     position: relative;
     /* Break out of the red panel so cards run the full width of the screen */
@@ -22,6 +22,10 @@
     overscroll-behavior-x: contain;
     touch-action: pan-x pan-y;
     outline-offset: -4px;
+    transition: opacity 0.2s ease;
+  }
+  .track[data-ready="false"] {
+    opacity: 0;
   }
   .track::-webkit-scrollbar {
     display: none;
@@ -62,8 +66,8 @@
     position: absolute;
     inset: 10px; /* 8px dot centred in a 28px tap area */
     border-radius: 50%;
-    background: #fff;
-    opacity: 0.55;
+    background: #000;
+    opacity: 0.35;
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
   .dot[data-active="true"]::after {
@@ -75,7 +79,7 @@
     display: none;
     margin: 0;
     text-align: center;
-    color: #fff;
+    color: #000;
     font-weight: 700;
     letter-spacing: 0.12em;
     font-variant-numeric: tabular-nums;
@@ -96,18 +100,14 @@
     line-height: 1;
     cursor: pointer;
   }
-  .arrow:disabled {
-    opacity: 0.3;
-    cursor: default;
-  }
   .prev { left: 1rem; }
   .next { right: 1rem; }
   
   /* Phones & small tablets */
   @media (max-width: 720px) {
     .carousel {
-      --card-w: min(56vw, 240px);
-      --gap: 0.875rem;
+      --card-w: clamp(112px, 33vw, 170px);
+      --gap: 0.6rem;
     }
     .arrow { display: none; } /* swipe instead */
     .dot { width: 32px; height: 32px; }
@@ -123,7 +123,7 @@
   
   /* Landscape phones: short viewport, so smaller cards */
   @media (max-height: 500px) and (orientation: landscape) {
-    .carousel { --card-w: min(24vw, 170px); }
+    .carousel { --card-w: min(26vw, 190px); }
   }
   
   @media (prefers-reduced-motion: reduce) {

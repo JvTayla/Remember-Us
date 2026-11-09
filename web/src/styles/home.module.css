@@ -36,25 +36,34 @@
   font-weight: 600;
 }
 
-/* Phone: the building sits under the text, bottom right, with its lower
-   part cropped by the edge of the screen so the page fits one screen. */
-.building {
+/* Rabbit + building scene.
+   --bw is the building width; the rabbit and the scene height are sized from it,
+   so everything keeps its proportions on any screen. The building is anchored to
+   the bottom of the hero and always shows most of its height. */
+.scene {
+  --bw: min(66vw, 380px);
   position: relative;
   z-index: 1;
-  align-self: flex-end;
-  margin: auto -10vw -36vw 0;
-  width: min(60vw, 320px);
-  height: auto;
+  width: 100%;
+  flex: 1 0 auto;
+  min-height: calc(var(--bw) * 1.38);
   pointer-events: none;
+}
+.building {
+  position: absolute;
+  right: calc(var(--bw) * -0.1);
+  bottom: calc(var(--bw) * -0.13);
+  width: var(--bw);
+  height: auto;
   user-select: none;
 }
-
-/* Tall phones have room to show more of it. */
-@media (max-width: 720px) and (min-height: 760px) {
-  .building {
-    width: min(66vw, 340px);
-    margin-bottom: -8vw;
-  }
+.rabbit {
+  position: absolute;
+  left: 6vw;
+  bottom: calc(var(--bw) * 0.93);
+  width: calc(var(--bw) * 0.36);
+  height: auto;
+  user-select: none;
 }
 
 /* Tablet and small laptop: still stacked, just bigger. */
@@ -62,13 +71,15 @@
   .content {
     padding-top: clamp(3rem, 9vh, 6rem);
   }
-  .building {
-    margin: auto -4vw -8vw 0;
-    width: min(40vw, 420px);
+  .scene {
+    --bw: min(44vw, 440px);
+  }
+  .rabbit {
+    left: 8vw;
   }
 }
 
-/* Wide screens: the building is tucked into the right edge, behind the text. */
+/* Wide screens: building tucked into the right edge, rabbit top left. */
 @media (min-width: 1280px) {
   .hero {
     flex-direction: row;
@@ -78,65 +89,113 @@
   .content {
     padding-bottom: 4rem;
   }
+  .scene {
+    display: contents; /* children position against the hero itself */
+  }
   .building {
-    position: absolute;
     right: -2vw;
     bottom: 0;
-    margin: 0;
     width: min(32vw, 600px);
+  }
+  .rabbit {
+    left: 4vw;
+    top: 14%;
+    bottom: auto;
+    width: min(15vw, 260px);
   }
 }
 
 .projects {
+  --red: #ca2f1d;
+  --strip-h: clamp(90px, 15vw, 210px);
   position: relative;
-  padding: clamp(3rem, 8vw, 6rem) 0;
+  isolation: isolate;
+  background: var(--red);
+  /* Break out of <main class="container"> and fill the whole screen */
+  box-sizing: border-box;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  min-height: calc(100svh - var(--header-h, 2.4rem));
+  display: flex;
+  align-items: center;
+  padding: calc(var(--strip-h) * 0.62) 0;
   overflow-x: clip; /* the carousel is 100vw wide; never scroll the page sideways */
 }
 
-/* Red panel in the middle, light band behind it running edge to edge */
+/* Dancers: upside-down along the top, upright along the bottom, half hidden behind the paper */
+.projects::before,
+.projects::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--strip-h);
+  background: url("../assets/dancers.png") repeat-x;
+  background-size: auto 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.projects::before {
+  top: 0;
+  transform: rotate(180deg);
+  background-position: 0 0;
+}
+.projects::after {
+  bottom: 0;
+  background-position: 40% 0;
+}
+
+/* Torn paper panel in the middle, cream band behind it running edge to edge */
 .projectsPanel {
   position: relative;
+  z-index: 1;
   isolation: isolate;
   width: min(1100px, 68vw);
   margin-inline: auto;
-  padding: 2rem 0 1.25rem;
+  padding: clamp(3rem, 6vw, 4.5rem) 0 clamp(2.5rem, 5vw, 3.5rem);
+  min-height: clamp(420px, 76svh, 800px);
+  display: flex;
+  flex-direction: column;
 }
-.projectsPanel::before {          /* the full-width band */
+.projectsPanel > :last-child { margin-block: auto; } /* carousel sits mid-panel */
+.projectsPanel::before {          /* full-width cream band behind the cards */
   content: "";
   position: absolute;
   z-index: -2;
-  top: 3rem;
-  bottom: -3rem;
+  top: 21%;
+  bottom: 17%;
   left: 50%;
   width: 100vw;
   transform: translateX(-50%);
-  background: #fff;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(180deg, #e8dfc3 0%, #f3edd9 100%);
 }
-.projectsPanel::after {           /* the red panel */
+.projectsPanel::after {           /* the torn paper */
   content: "";
   position: absolute;
   z-index: -1;
-  inset: 0;
-  background: #d4351c;            /* swap for your brand red */
-  box-shadow: 0 30px 50px -10px rgba(0, 0, 0, 0.35);
+  inset: -2% -3%;
+  background: url("../assets/tornPaper.png") center / 100% 100% no-repeat;
 }
 
 .projectsTitle {
-  margin: 0 0 1.5rem;
+  margin: 0 0 clamp(1.25rem, 3vw, 2.5rem);
   padding-inline: 1rem;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: 0.35em;
-  font-size: clamp(0.8rem, 1.4vw, 1rem);
-  color: #fff;
+  font-family: var(--font-display, Impact, sans-serif);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  font-size: clamp(1.6rem, 3.4vw, 2.75rem);
+  color: #000;
 }
 .projectsEmpty {
   text-align: center;
-  color: #fff;
+  color: #000;
 }
 
 @media (max-width: 900px) {
-  .projectsPanel { width: calc(100% - 2rem); }
-  .projectsTitle { letter-spacing: 0.25em; }
+  .projectsPanel { width: calc(100% - 3rem); }
+  .projectsPanel::before { display: none; }
+  .projectsTitle { max-width: 6.5em; margin-inline: auto; font-size: clamp(1.5rem, 7vw, 2.2rem); }
 }
