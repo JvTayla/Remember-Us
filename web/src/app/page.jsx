@@ -26,14 +26,16 @@ export default async function Home() {
             speed={settings?.marqueeSpeed}
           />
           <h2 className={styles.exhibition}>EXHIBITION '26</h2>
-          <p className={styles.tagline}>
-            {settings?.tagline || "Creative Project Showcase"}
-          </p>
-          <Countdown
-            eventDate={settings?.eventDate}
-            eventLocation={settings?.eventLocation}
-            eventMapUrl={settings?.eventMapUrl}
-          />
+          <div className={styles.info}>
+            <p className={styles.tagline}>
+              {settings?.tagline || "Creative Project Showcase"}
+            </p>
+            <Countdown
+              eventDate={settings?.eventDate}
+              eventLocation={settings?.eventLocation}
+              eventMapUrl={settings?.eventMapUrl}
+            />
+          </div>
         </div>
 
         <div className={styles.scene} aria-hidden="true">

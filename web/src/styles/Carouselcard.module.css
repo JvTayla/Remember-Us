@@ -94,3 +94,14 @@
   letter-spacing: 0.08em;
   font-weight: 700;
 }
+
+/* Phones: the cards are big now, so the text can be too */
+@media (max-width: 720px) {
+  .title {
+    font-size: 1rem;
+  }
+  .genre,
+  .more {
+    font-size: 0.72rem;
+  }
+}

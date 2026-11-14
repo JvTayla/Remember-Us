@@ -26,6 +26,8 @@ export default function ProjectCarousel({ children, label = "Projects" }) {
   const [active, setActive] = useState(mid * n);
   const [paused, setPaused] = useState(false);
   const [ready, setReady] = useState(false);
+  const [inView, setInView] = useState(false);
+  const rootRef = useRef(null);
 
   // Which slide is closest to the centre of the track?
   const updateActive = useCallback(() => {
@@ -72,10 +74,12 @@ export default function ProjectCarousel({ children, label = "Projects" }) {
     (index, behavior = "smooth") => {
       const track = trackRef.current;
       const clamped = Math.max(0, Math.min(total - 1, index));
-      track?.children[clamped]?.scrollIntoView({
+      const el = track?.children[clamped];
+      if (!track || !el) return;
+      // Scroll the track sideways only. (scrollIntoView would also scroll the page.)
+      track.scrollTo({
+        left: el.offsetLeft + el.offsetWidth / 2 - track.clientWidth / 2,
         behavior,
-        inline: "center",
-        block: "nearest",
       });
     },
     [total]
@@ -96,17 +100,31 @@ export default function ProjectCarousel({ children, label = "Projects" }) {
     };
   }, [goTo, updateActive, mid, n]);
 
-  // Auto-scroll: step forward every few seconds, forever.
-  // Pauses on hover, focus, touch, hidden tab, and for reduced-motion users.
+  // Only run while the carousel is actually on screen.
   useEffect(() => {
-    if (paused || n < 2) return;
+    const el = rootRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return;
+    }
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
+      threshold: 0.25,
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [n]);
+
+  // Auto-scroll: step forward every few seconds, forever.
+  // Pauses on hover, focus, touch, hidden tab, off-screen, and for reduced-motion users.
+  useEffect(() => {
+    if (paused || !inView || n < 2) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setInterval(() => {
       if (document.hidden) return;
       goTo(activeRef.current + 1);
     }, AUTOPLAY_MS);
     return () => clearInterval(id);
-  }, [paused, n, goTo]);
+  }, [paused, inView, n, goTo]);
 
   // For a dot, pick whichever copy of that slide is nearest to where we are.
   const goToSlide = (i) => {
@@ -135,6 +153,7 @@ export default function ProjectCarousel({ children, label = "Projects" }) {
 
   return (
     <div
+      ref={rootRef}
       className={`${styles.carousel} ${manySlides ? styles.many : ""}`}
       role="region"
       aria-roledescription="carousel"

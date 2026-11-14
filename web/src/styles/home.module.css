@@ -6,7 +6,8 @@
   overflow: hidden;
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  min-height: calc(100svh - var(--header-h, 2.4rem));
+  /* The nav is hidden on first load, so the hero fills the whole screen. */
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,8 +17,8 @@
   position: relative;
   z-index: 2;
   width: min(100%, 640px);
-  padding: clamp(2rem, 7vh, 6rem) max(1.25rem, env(safe-area-inset-left)) 0.75rem
-    max(1.25rem, env(safe-area-inset-right));
+  padding: clamp(3rem, 11vh, 7rem) max(1.25rem, env(safe-area-inset-left))
+    0.75rem max(1.25rem, env(safe-area-inset-right));
   text-align: center;
 }
 
@@ -36,32 +37,35 @@
   font-weight: 600;
 }
 
-/* Rabbit + building scene.
-   --bw is the building width; the rabbit and the scene height are sized from it,
-   so everything keeps its proportions on any screen. The building is anchored to
-   the bottom of the hero and always shows most of its height. */
+/* Rabbit + building scene (phones and tablets).
+   The scene is whatever height is left under the text. The building is fitted
+   into that space (never wider than --bw), so it sits right under the text and
+   stays on the first screen. The rabbit sits at the top left of the scene. */
 .scene {
-  --bw: min(66vw, 380px);
+  --bw: min(74vw, 440px); /* widest the building may be */
+  --rw: min(38vw, 200px); /* rabbit width */
   position: relative;
   z-index: 1;
   width: 100%;
   flex: 1 0 auto;
-  min-height: calc(var(--bw) * 1.38);
+  min-height: max(calc(var(--rw) * 1.65), 58vw);
   pointer-events: none;
 }
 .building {
   position: absolute;
-  right: calc(var(--bw) * -0.1);
-  bottom: calc(var(--bw) * -0.13);
+  right: -6vw;
+  bottom: -3%;
   width: var(--bw);
-  height: auto;
+  height: 112%;
+  object-fit: contain;
+  object-position: right bottom;
   user-select: none;
 }
 .rabbit {
   position: absolute;
-  left: 6vw;
-  bottom: calc(var(--bw) * 0.93);
-  width: calc(var(--bw) * 0.36);
+  left: 5vw;
+  top: 0;
+  width: var(--rw);
   height: auto;
   user-select: none;
 }
@@ -69,39 +73,77 @@
 /* Tablet and small laptop: still stacked, just bigger. */
 @media (min-width: 721px) {
   .content {
-    padding-top: clamp(3rem, 9vh, 6rem);
+    padding-top: clamp(3.5rem, 11vh, 7rem);
   }
   .scene {
-    --bw: min(44vw, 440px);
+    --bw: min(52vw, 520px);
+    --rw: min(24vw, 260px);
+    min-height: max(calc(var(--rw) * 1.65), 38vw);
   }
   .rabbit {
     left: 8vw;
   }
 }
 
-/* Wide screens: building tucked into the right edge, rabbit top left. */
+/* Info block (tagline, countdown, date, venue) */
+.info {
+  width: 100%;
+}
+
+/* Wide screens: laid out like the desktop mockup.
+   Everything is sized from --u, which is 1% of the screen width, or less on
+   short screens, so the whole hero keeps its proportions and fits one screen. */
 @media (min-width: 1280px) {
   .hero {
-    flex-direction: row;
-    justify-content: center;
-    align-items: stretch;
+    --u: min(1vw, calc(100svh / 65));
+    /* Building width: grows a little on very wide screens (extra room on the right) */
+    --hbw: calc(
+      var(--u) * 32.6 +
+        clamp(0px, calc((100vw - var(--u) * 147) * 0.3), calc(var(--u) * 10))
+    );
+    --hbo: var(--u); /* how far the building overhangs the right edge */
   }
   .content {
-    padding-bottom: 4rem;
+    width: 100%;
+    padding: calc(var(--u) * 4.2) 0 0;
+  }
+  .content h1 {
+    font-size: calc(var(--u) * 9.7);
+  }
+  .exhibition {
+    margin: calc(var(--u) * 0.8) 0 0;
+    font-size: calc(var(--u) * 5.7);
+  }
+  .info {
+    width: calc(var(--u) * 52);
+    /* Centred under the title when there is room. When the building needs the
+       space, the column stops a little short of it. */
+    margin-left: max(
+      0px,
+      calc(
+        min(50vw, 100vw - var(--hbw) + var(--hbo) - var(--u) * 34) - var(--u) *
+          26
+      )
+    );
+  }
+  .tagline {
+    margin: calc(var(--u) * 2.4) 0 0;
+    font-size: calc(var(--u) * 2.4);
   }
   .scene {
     display: contents; /* children position against the hero itself */
   }
   .building {
-    right: -2vw;
+    right: calc(var(--hbo) * -1);
     bottom: 0;
-    width: min(32vw, 600px);
+    width: var(--hbw);
+    height: auto;
   }
   .rabbit {
-    left: 4vw;
-    top: 14%;
+    left: calc(var(--u) * 1.5);
+    top: calc(var(--u) * 5.3);
     bottom: auto;
-    width: min(15vw, 260px);
+    width: calc(var(--u) * 15);
   }
 }
 
@@ -115,7 +157,7 @@
   box-sizing: border-box;
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  min-height: calc(100svh - var(--header-h, 2.4rem));
+  min-height: 100svh;
   display: flex;
   align-items: center;
   padding: calc(var(--strip-h) * 0.62) 0;
@@ -157,8 +199,11 @@
   display: flex;
   flex-direction: column;
 }
-.projectsPanel > :last-child { margin-block: auto; } /* carousel sits mid-panel */
-.projectsPanel::before {          /* full-width cream band behind the cards */
+.projectsPanel > :last-child {
+  margin-block: auto;
+} /* carousel sits mid-panel */
+.projectsPanel::before {
+  /* full-width cream band behind the cards */
   content: "";
   position: absolute;
   z-index: -2;
@@ -169,7 +214,8 @@
   transform: translateX(-50%);
   background: linear-gradient(180deg, #e8dfc3 0%, #f3edd9 100%);
 }
-.projectsPanel::after {           /* the torn paper */
+.projectsPanel::after {
+  /* the torn paper */
   content: "";
   position: absolute;
   z-index: -1;
@@ -195,7 +241,15 @@
 }
 
 @media (max-width: 900px) {
-  .projectsPanel { width: calc(100% - 3rem); }
-  .projectsPanel::before { display: none; }
-  .projectsTitle { max-width: 6.5em; margin-inline: auto; font-size: clamp(1.5rem, 7vw, 2.2rem); }
+  .projectsPanel {
+    width: calc(100% - 3rem);
+  }
+  .projectsPanel::before {
+    display: none;
+  }
+  .projectsTitle {
+    max-width: 7em;
+    margin-inline: auto;
+    font-size: clamp(2.4rem, 12.5vw, 3.6rem);
+  }
 }
