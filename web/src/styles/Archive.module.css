@@ -1,224 +1,328 @@
 .page {
-    --r: clamp(1.5rem, 3vw, 2.75rem);           /* folder corner radius */
-    --tab-w: clamp(48px, 4.5vw, 82px);          /* width of the side tabs */
-    padding-top: clamp(5.5rem, 9vw, 7.5rem);    /* clears the nav bar */
-  }
-  
-  /* ---------- Heading ---------- */
-  .header {
-    padding: 0 1rem;
-    margin-bottom: clamp(1.5rem, 4vw, 3rem);
-    text-align: center;
-  }
-  .title {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(0.5rem, 2vw, 1.5rem);
-    margin: 0;
-    font-family: var(--font-body, Inter, system-ui, sans-serif);
-    font-weight: 900;
-    font-size: clamp(2.5rem, 8vw, 6.5rem);
-    line-height: 1;
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
-    color: #000;
-  }
-  .asterisk {
-    flex: none;
-    width: 0.95em;
-    height: 0.95em;
-    color: #b71c17;
-  }
-  .lead {
-    max-width: 56rem;
-    margin: 0.75rem auto 0;
-    font-size: clamp(0.7rem, 1.3vw, 0.9rem);
-    line-height: 1.5;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-  }
-  .empty {
-    text-align: center;
-  }
-  
-  /* ---------- Folders ---------- */
-  /* Break out of the centred page column so the folders use the full screen */
-  .stage {
-    width: 100vw;
-    max-width: none;
-    margin-inline: calc(50% - 50vw);
-  }
+  --r: clamp(1.5rem, 3vw, 2.75rem);           /* folder corner radius */
+  --tab-w: clamp(48px, 4.5vw, 82px);          /* width of the side tabs */
+  padding-top: clamp(5.5rem, 9vw, 7.5rem);    /* clears the nav bar */
+}
+
+/* ---------- Heading ---------- */
+.header {
+  padding: 0 1rem;
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  text-align: center;
+}
+.title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.5rem, 2vw, 1.5rem);
+  margin: 0;
+  font-family: var(--font-body, Inter, system-ui, sans-serif);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 8vw, 6.5rem);
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #000;
+}
+.asterisk {
+  flex: none;
+  width: 0.95em;
+  height: 0.95em;
+  color: #b71c17;
+}
+.lead {
+  max-width: 56rem;
+  margin: 0.75rem auto 0;
+  font-size: clamp(0.7rem, 1.3vw, 0.9rem);
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.empty {
+  text-align: center;
+}
+
+/* ---------- Folders ---------- */
+/* Break out of the centred page column so the folders use the full screen */
+.stage {
+  width: 100vw;
+  max-width: none;
+  margin-inline: calc(50% - 50vw);
+}
+
+/* One column per folder. React sets grid-template-columns: the open folder gets
+   a big fr value, the rest get 1fr, and the change animates. */
+.folders {
+  display: grid;
+  grid-auto-flow: column;
+  box-sizing: border-box;
+  width: min(1320px, 92%);
+  margin-inline: auto;
+  padding-left: var(--tab-w); /* room for the first folder's tab */
+  transition: grid-template-columns 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.folder {
+  --fb-bg: #b71c17;
+  --fb-fg: #e3e2c4;
+  position: relative;
+  box-sizing: border-box;
+  min-width: 0;
+  /* each box runs under the next folder by the corner radius */
+  margin-right: calc(-1 * var(--r));
+  min-height: clamp(28rem, 48vw, 46rem);
+  background: var(--folder-bg, var(--fb-bg));
+  color: var(--folder-fg, var(--fb-fg));
+  border-radius: var(--r) 0 0 0;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.folder:nth-child(3n + 2) { --fb-bg: #1a5456; }
+.folder:nth-child(3n + 3) { --fb-bg: #509c99; }
+.folder:last-child {
+  margin-right: 0;
+  border-radius: var(--r) var(--r) 0 0;
+}
+.folder:focus-visible {
+  outline: 3px solid #000;
+  outline-offset: -6px;
+}
+
+/* The open folder */
+.folder[data-active="true"] {
+  padding: 2rem 2.25rem;
+}
+
+/* ---------- Tabs ---------- */
+.tab {
+  position: absolute;
+  right: 100%;                 /* sits just left of its folder, over the previous strip */
+  top: 18%;
+  width: var(--tab-w);
+  height: 44%;
+  display: flex;
+  justify-content: center;
+  background: inherit;
+  color: inherit;
+  border-radius: calc(var(--tab-w) * 0.45) 0 0 calc(var(--tab-w) * 0.45);
+  transition: width 0.25s ease;
+}
+.folder:nth-child(even) .tab { top: 41%; }
+
+/* Long names (e.g. "Narrative + Visual Design") get a taller tab and slightly smaller text */
+.tabLong { height: 58%; }
+.folder:nth-child(even) .tabLong { top: 30%; }
+.tabLong .tabText { font-size: calc(var(--tab-w) * 0.38); }
+.folder[data-active="true"] .tab { width: calc(var(--tab-w) + 10px); }
+
+.tabText {
+  box-sizing: border-box;
+  max-height: 100%;
+  padding: 1.25rem 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);   /* reads bottom to top */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--font-display, inherit);
+  font-weight: 900;
+  font-style: italic;
+  font-size: calc(var(--tab-w) * 0.46);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+/* ---------- Folder contents ---------- */
+.frontTitle {
+  position: relative;
+  z-index: 1;
+  display: none;               /* only the open folder shows its big title */
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  font-family: var(--font-display, inherit);
+  font-weight: 900;
+  font-style: italic;
+  font-size: clamp(2rem, 5.5vw, 5rem);
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+.folder[data-active="true"] .frontTitle {
+  display: block;
+  animation: titleIn 0.45s ease 0.12s both;
+}
+
+/* Closed folder: count + link stacked at the bottom of the strip */
+.meta {
+  position: absolute;
+  left: 0.9rem;
+  bottom: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  /* never run under the next folder (the hidden radius) */
+  max-width: calc(100% - var(--r) - 1.25rem);
+  z-index: 1;
+  animation: metaInB 0.4s ease 0.1s both;
+}
+.folder:last-child .meta { max-width: calc(100% - 1.25rem); }
+
+.count {
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.cta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3em;
+  /* scales with the strip width so it always fits */
+  font-size: clamp(0.5rem, 0.85vw, 0.7rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+@media (hover: hover) {
+  .folder:hover .ctaText { text-decoration: underline; }
+  .folder:hover .arrow { transform: translateX(4px); }
+}
+.folder:focus-visible .ctaText { text-decoration: underline; }
+.folder:focus-visible .arrow { transform: translateX(4px); }
+
+/* Open folder: count on the left, link on the right */
+.folder[data-active="true"] .meta {
+  left: 2.25rem;
+  right: 2.25rem;
+  bottom: 2rem;
+  max-width: none;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  animation: metaInA 0.4s ease 0.15s both;
+}
+.folder[data-active="true"] .count { font-size: 1rem; }
+.folder[data-active="true"] .cta { font-size: 0.9rem; }
+
+/* Artwork inside an open folder (e.g. the pixel hands in AI + IM).
+   It's a mask filled with the folder's text colour, so it works on any folder colour.
+   It spans the full width so the hands bleed off the folder's edges. */
+.art {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--art-color, currentColor);
+  -webkit-mask: var(--art) center / 100% 100% no-repeat;
+  mask: var(--art) center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+.folder[data-active="true"] .art {
+  display: block;
+  animation: artIn 0.7s ease 0.1s both;
+}
+/* Artwork that doesn't bleed off the edges (horses, invaders). It's fitted inside a
+   free area of the folder: below the big title, above the count + link, and clear of the
+   next folder's tab, which overlaps the right side of the open folder. The picture
+   scales to fit this area without distortion. */
+.artInset {
+  left: 2.25rem;
+  right: calc(var(--r) + var(--tab-w) + 1.25rem);
+  top: 7.5rem;
+  bottom: 5.5rem;
+  transform: none;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+.folder:last-child .artInset { right: 2.25rem; }
+.folder[data-active="true"] .artInset { animation-name: artInsetIn; }
+@keyframes artInsetIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes artIn {
+  from { opacity: 0; transform: translateY(-46%); }
+  to   { opacity: 1; transform: translateY(-50%); }
+}
+
+/* Two identical fades under different names, so the animation replays
+   every time a folder switches between open and closed */
+@keyframes metaInA { from { opacity: 0; } to { opacity: 1; } }
+@keyframes metaInB { from { opacity: 0; } to { opacity: 1; } }
+@keyframes titleIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Phones: folders stack vertically (no accordion) ---------- */
+@media (max-width: 720px) {
   .folders {
     display: flex;
-    box-sizing: border-box;
-    width: min(1320px, 92%);
-    margin-inline: auto;
-    padding-left: var(--tab-w); /* room for the first folder's tab */
+    flex-direction: column;
+    width: calc(100% - 1.5rem);
+    padding-left: 0;
   }
-  
-  .folder {
-    --fb-bg: #b71c17;
-    --fb-fg: #000;
-    position: relative;
-    box-sizing: border-box;
-    /* visible strip + the radius that tucks under the next folder */
-    flex: 0 0 calc(
-      max(min(11%, var(--strip-share, 11%)), calc(var(--tab-w) + 1.25rem)) + var(--r)
-    );
-    margin-right: calc(-1 * var(--r));
-    min-height: clamp(28rem, 48vw, 46rem);
-    background: var(--folder-bg, var(--fb-bg));
-    color: var(--folder-fg, var(--fb-fg));
-    border-radius: var(--r) 0 0 0;
-    text-decoration: none;
-    transition: transform 0.2s ease;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .folder:nth-child(3n + 2) { --fb-bg: #1a5456; }
-  .folder:nth-child(3n + 3) { --fb-bg: #509c99; }
-  
-  .folder:focus-visible {
-    outline: 3px solid #000;
-    outline-offset: -6px;
-  }
-  @media (hover: hover) {
-    .folder:hover { transform: translateY(-8px); }
-  }
-  
-  /* The front (last) folder is the big one */
-  .front {
-    flex: 1 1 0;
-    min-width: 0;
+  .folder[data-active] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 0;
     margin-right: 0;
-    padding: 2rem 2.25rem;
+    margin-top: calc(var(--r) * -0.6); /* each folder overlaps the one before */
+    padding: 1.1rem 1.25rem 2.5rem;    /* bottom padding hides under the next folder */
     border-radius: var(--r) var(--r) 0 0;
   }
-  
-  /* ---------- Tabs ---------- */
-  .tab {
-    position: absolute;
-    right: 100%;                 /* sits just left of its folder, over the previous strip */
-    top: 18%;
-    width: var(--tab-w);
-    height: 44%;
-    display: flex;
-    justify-content: center;
-    background: inherit;
-    color: inherit;
-    border-radius: calc(var(--tab-w) * 0.45) 0 0 calc(var(--tab-w) * 0.45);
-  }
-  .folder:nth-child(even) .tab { top: 41%; }
-  
-  .tabText {
-    box-sizing: border-box;
-    max-height: 100%;
-    padding: 1.25rem 0;
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);   /* reads bottom to top */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-family: var(--font-display, inherit);
-    font-weight: 900;
-    font-style: italic;
-    font-size: calc(var(--tab-w) * 0.46);
-    line-height: 1;
-    text-transform: uppercase;
-  }
-  
-  /* ---------- Folder contents ---------- */
-  .count {
-    position: absolute;
-    left: 0.9rem;
-    bottom: 1.1rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-  .frontTitle {
+  .folder[data-active]:first-child { margin-top: 0; }
+  .folder[data-active]:last-child { padding-bottom: 1.5rem; }
+
+  .folder[data-active] .tab {
+    position: static;
+    width: auto;
+    height: auto;
     display: block;
-    max-width: 100%;
-    overflow-wrap: anywhere;
-    font-family: var(--font-display, inherit);
-    font-weight: 900;
-    font-style: italic;
-    font-size: clamp(2rem, 5.5vw, 5rem);
-    line-height: 0.95;
-    text-transform: uppercase;
+    background: transparent;
+    border-radius: 0;
   }
-  .front .count {
-    left: 2.25rem;
-    bottom: 2rem;
-    font-size: 1rem;
+  .tabText,
+  .tabLong .tabText {
+    max-height: none;
+    padding: 0;
+    writing-mode: horizontal-tb;
+    transform: none;
+    white-space: normal;       /* long names may wrap onto two lines */
+    font-size: 1.4rem;
   }
-  .cta {
-    position: absolute;
-    right: 2.25rem;
-    bottom: 2rem;
-    font-size: 0.9rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+  .tabLong .tabText { font-size: 1.15rem; }
+
+  .folder[data-active] .meta {
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: none;
+    animation: none;
   }
-  .front:hover .cta { text-decoration: underline; }
-  
-  /* ---------- Phones: folders stack vertically ---------- */
-  @media (max-width: 720px) {
-    .folders {
-      flex-direction: column;
-      width: calc(100% - 1.5rem);
-      padding-left: 0;
-    }
-    .folder {
-      flex: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      min-height: 0;
-      margin-right: 0;
-      margin-top: calc(var(--r) * -0.6); /* each folder overlaps the one before */
-      padding: 1.1rem 1.25rem 2.5rem;    /* bottom padding hides under the next folder */
-      border-radius: var(--r) var(--r) 0 0;
-    }
-    .folder:first-child { margin-top: 0; }
-  
-    .tab {
-      position: static;
-      width: auto;
-      height: auto;
-      display: block;
-      background: transparent;
-      border-radius: 0;
-    }
-    .tabText {
-      max-height: none;
-      padding: 0;
-      writing-mode: horizontal-tb;
-      transform: none;
-      font-size: 1.4rem;
-    }
-    .count {
-      position: static;
-      font-size: 0.85rem;
-      white-space: nowrap;
-    }
-    .frontTitle { display: none; }
-  
-    .front {
-      flex-wrap: wrap;
-      align-content: space-between;
-      min-height: 11rem;
-      padding: 1.25rem 1.25rem 1.5rem;
-    }
-    .front .tab { flex: 1 0 100%; }
-    .front .count { font-size: 0.95rem; }
-    .cta {
-      position: static;
-      margin-left: auto;
-    }
+  .folder[data-active] .count {
+    font-size: 0.85rem;
+    white-space: nowrap;
   }
-  
-  @media (prefers-reduced-motion: reduce) {
-    .folder { transition: none; }
-  }
+  /* small rows: just the arrow; the whole row is tappable */
+  .folder[data-active] .cta { font-size: 1.25rem; }
+  .ctaText { display: none; }
+  .folder[data-active] .frontTitle { display: none; }
+  .folder[data-active] .art { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .folders, .tab, .arrow { transition: none; }
+  .meta, .frontTitle, .art { animation: none !important; }
+}
