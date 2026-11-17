@@ -86,7 +86,7 @@ const FOLDERS = [
     ],
   },
   {
-    matches: [(c) => c.slug === "animation" || /^\s*animation\s*$/i.test(c.title ?? "")],
+    matches: [(c) => c.slug === "animation" || c.slug === "animations" || /^\s*animations?\s*$/i.test(c.title ?? "")],
     art: {
       src: "/archive-art/animation-horses.png",
       ratio: "1199 / 803",
