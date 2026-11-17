@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { sanityFetch } from "@/lib/sanityClient";
 import { categoriesWithCountQuery } from "@/lib/queries";
 import { categoryTheme } from "@/lib/categoryTheme";
 import styles from "@/styles/Archive.module.css";
+import ArchiveFolders from "./ArchiveFolders";
 
 export const metadata = {
   title: "Archive",
@@ -48,16 +48,73 @@ function Asterisk({ id }) {
 function folderColors(category) {
   const t = categoryTheme(category) ?? {};
   return {
-    bg: t.background ?? t.backgroundColor ?? t["--pane-bg"] ?? t["--bg"] ?? t["--cat-bg"],
-    fg: t.color ?? t["--pane-fg"] ?? t["--fg"] ?? t["--cat-fg"],
+    bg: t.background ?? t.backgroundColor ?? t["--pane-bg"] ?? t["--bg"] ?? t["--cat-bg"] ?? null,
+    fg: t.color ?? t["--pane-fg"] ?? t["--fg"] ?? t["--cat-fg"] ?? null,
   };
 }
 
+/**
+ * WHICH FOLDERS APPEAR, AND IN WHAT ORDER.
+ * Only categories listed here are shown, in this order. Anything else in Sanity
+ * (e.g. VR / XR) is left out of the archive. Each entry matches a category by
+ * slug or title, so tweak `match` if one of yours is named differently.
+ *
+ * `art` is optional artwork shown while that folder is open. Files live in
+ * /public/archive-art/. It's drawn in the folder's text colour unless `color` is set.
+ */
+const FOLDERS = [
+  {
+    matches: [(c) => c.slug === "ai-im" || /^\s*ai\s*\+\s*im\s*$/i.test(c.title ?? "")],
+    art: { src: "/archive-art/ai-im-hands.png", ratio: "953 / 451" },
+  },
+  {
+    matches: [(c) => c.slug === "games" || /^\s*games?\s*$/i.test(c.title ?? "")],
+  },
+  {
+    // Two Sanity categories shown as ONE folder: their project counts are added up,
+    // and the folder links to the first one that matches.
+    title: "Narrative + Visual Design",
+    matches: [
+      (c) => c.slug === "narrative" || /^\s*narrative\b/i.test(c.title ?? ""),
+      (c) => c.slug === "visual-design" || /^\s*visual\s+design\s*$/i.test(c.title ?? ""),
+    ],
+  },
+  {
+    matches: [(c) => c.slug === "animation" || /^\s*animation\s*$/i.test(c.title ?? "")],
+    art: {
+      src: "/archive-art/animation-horses.png",
+      ratio: "1199 / 803",
+      inset: true, // pulled in from the sides, clear of any neighbouring tab
+    },
+  },
+];
+
 export default async function Archive() {
   const categories = (await sanityFetch(categoriesWithCountQuery)) ?? [];
-  const last = categories.length - 1;
-  // Share of the width the visible "strips" of the back folders may use
-  const stripShare = `${48 / Math.max(categories.length - 1, 1)}%`;
+
+  // Plain data only: the folders are a client component (they react to hover)
+  const items = FOLDERS.flatMap((folder) => {
+    const found = folder.matches.map((m) => categories.find(m)).filter(Boolean);
+    if (!found.length) {
+      console.warn(
+        "[archive] No category matched one of the FOLDERS entries. Check its slug/title in Sanity.",
+        folder.matches.map(String)
+      );
+      return [];
+    }
+    const [primary] = found;
+    const { bg, fg } = folderColors(primary);
+    return [
+      {
+        slug: primary.slug,
+        title: folder.title ?? primary.title,
+        count: found.reduce((sum, c) => sum + (c.count ?? 0), 0),
+        bg,
+        fg,
+        art: folder.art ?? null,
+      },
+    ];
+  });
 
   return (
     <div className={styles.page}>
@@ -72,45 +129,10 @@ export default async function Archive() {
         </p>
       </header>
 
-      {categories.length === 0 ? (
+      {items.length === 0 ? (
         <p className={styles.empty}>No categories yet.</p>
       ) : (
-        <div className={styles.stage}>
-        <nav
-          className={styles.folders}
-          style={{ "--strip-share": stripShare }}
-          aria-label="Project categories"
-        >
-          {categories.map((c, i) => {
-            const { bg, fg } = folderColors(c);
-            const isFront = i === last;
-            return (
-              <Link
-                key={c.slug}
-                href={`/category/${c.slug}`}
-                className={`${styles.folder} ${isFront ? styles.front : ""}`}
-                style={{ "--folder-bg": bg, "--folder-fg": fg }}
-              >
-                <span className={styles.tab}>
-                  <span className={styles.tabText}>#{c.title}</span>
-                </span>
-
-                {isFront && <span className={styles.frontTitle}>{c.title}</span>}
-
-                <span className={styles.count}>
-                  {c.count} {c.count === 1 ? "project" : "projects"}
-                </span>
-
-                {isFront && (
-                  <span className={styles.cta} aria-hidden="true">
-                    View projects →
-                  </span>
-                )}
-              </Link>
-            );
-          })}
-        </nav>
-        </div>
+        <ArchiveFolders items={items} />
       )}
     </div>
   );
