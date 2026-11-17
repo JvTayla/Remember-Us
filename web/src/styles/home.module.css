@@ -6,7 +6,8 @@
   overflow: hidden;
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  min-height: calc(100svh - var(--header-h, 2.4rem));
+  /* The nav is hidden on first load, so the hero fills the whole screen. */
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,8 +17,8 @@
   position: relative;
   z-index: 2;
   width: min(100%, 640px);
-  padding: clamp(2rem, 7vh, 6rem) max(1.25rem, env(safe-area-inset-left)) 0.75rem
-    max(1.25rem, env(safe-area-inset-right));
+  padding: clamp(3rem, 11vh, 7rem) max(1.25rem, env(safe-area-inset-left))
+    0.75rem max(1.25rem, env(safe-area-inset-right));
   text-align: center;
 }
 
@@ -36,53 +37,219 @@
   font-weight: 600;
 }
 
-/* Phone: the building sits under the text, bottom right, with its lower
-   part cropped by the edge of the screen so the page fits one screen. */
-.building {
+/* Rabbit + building scene (phones and tablets).
+   The scene is whatever height is left under the text. The building is fitted
+   into that space (never wider than --bw), so it sits right under the text and
+   stays on the first screen. The rabbit sits at the top left of the scene. */
+.scene {
+  --bw: min(74vw, 440px); /* widest the building may be */
+  --rw: min(38vw, 200px); /* rabbit width */
   position: relative;
   z-index: 1;
-  align-self: flex-end;
-  margin: auto -10vw -36vw 0;
-  width: min(60vw, 320px);
-  height: auto;
+  width: 100%;
+  flex: 1 0 auto;
+  min-height: max(calc(var(--rw) * 1.65), 58vw);
   pointer-events: none;
+}
+.building {
+  position: absolute;
+  right: -6vw;
+  bottom: -3%;
+  width: var(--bw);
+  height: 112%;
+  object-fit: contain;
+  object-position: right bottom;
   user-select: none;
 }
-
-/* Tall phones have room to show more of it. */
-@media (max-width: 720px) and (min-height: 760px) {
-  .building {
-    width: min(66vw, 340px);
-    margin-bottom: -8vw;
-  }
+.rabbit {
+  position: absolute;
+  left: 5vw;
+  top: 0;
+  width: var(--rw);
+  height: auto;
+  user-select: none;
 }
 
 /* Tablet and small laptop: still stacked, just bigger. */
 @media (min-width: 721px) {
   .content {
-    padding-top: clamp(3rem, 9vh, 6rem);
+    padding-top: clamp(3.5rem, 11vh, 7rem);
   }
-  .building {
-    margin: auto -4vw -8vw 0;
-    width: min(40vw, 420px);
+  .scene {
+    --bw: min(52vw, 520px);
+    --rw: min(24vw, 260px);
+    min-height: max(calc(var(--rw) * 1.65), 38vw);
+  }
+  .rabbit {
+    left: 8vw;
   }
 }
 
-/* Wide screens: the building is tucked into the right edge, behind the text. */
+/* Info block (tagline, countdown, date, venue) */
+.info {
+  width: 100%;
+}
+
+/* Wide screens: laid out like the desktop mockup.
+   Everything is sized from --u, which is 1% of the screen width, or less on
+   short screens, so the whole hero keeps its proportions and fits one screen. */
 @media (min-width: 1280px) {
   .hero {
-    flex-direction: row;
-    justify-content: center;
-    align-items: stretch;
+    --u: min(1vw, calc(100svh / 65));
+    /* Building width: grows a little on very wide screens (extra room on the right) */
+    --hbw: calc(
+      var(--u) * 32.6 +
+        clamp(0px, calc((100vw - var(--u) * 147) * 0.3), calc(var(--u) * 10))
+    );
+    --hbo: var(--u); /* how far the building overhangs the right edge */
   }
   .content {
-    padding-bottom: 4rem;
+    width: 100%;
+    padding: calc(var(--u) * 4.2) 0 0;
+  }
+  .content h1 {
+    font-size: calc(var(--u) * 9.7);
+  }
+  .exhibition {
+    margin: calc(var(--u) * 0.8) 0 0;
+    font-size: calc(var(--u) * 5.7);
+  }
+  .info {
+    width: calc(var(--u) * 52);
+    /* Centred under the title when there is room. When the building needs the
+       space, the column stops a little short of it. */
+    margin-left: max(
+      0px,
+      calc(
+        min(50vw, 100vw - var(--hbw) + var(--hbo) - var(--u) * 34) - var(--u) *
+          26
+      )
+    );
+  }
+  .tagline {
+    margin: calc(var(--u) * 2.4) 0 0;
+    font-size: calc(var(--u) * 2.4);
+  }
+  .scene {
+    display: contents; /* children position against the hero itself */
   }
   .building {
-    position: absolute;
-    right: -2vw;
+    right: calc(var(--hbo) * -1);
     bottom: 0;
-    margin: 0;
-    width: min(32vw, 600px);
+    width: var(--hbw);
+    height: auto;
+  }
+  .rabbit {
+    left: calc(var(--u) * 1.5);
+    top: calc(var(--u) * 5.3);
+    bottom: auto;
+    width: calc(var(--u) * 15);
+  }
+}
+
+.projects {
+  --red: #ca2f1d;
+  --strip-h: clamp(90px, 15vw, 210px);
+  position: relative;
+  isolation: isolate;
+  background: var(--red);
+  /* Break out of <main class="container"> and fill the whole screen */
+  box-sizing: border-box;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: calc(var(--strip-h) * 0.62) 0;
+  overflow-x: clip; /* the carousel is 100vw wide; never scroll the page sideways */
+}
+
+/* Dancers: upside-down along the top, upright along the bottom, half hidden behind the paper */
+.projects::before,
+.projects::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--strip-h);
+  background: url("../assets/dancers.png") repeat-x;
+  background-size: auto 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.projects::before {
+  top: 0;
+  transform: rotate(180deg);
+  background-position: 0 0;
+}
+.projects::after {
+  bottom: 0;
+  background-position: 40% 0;
+}
+
+/* Torn paper panel in the middle, cream band behind it running edge to edge */
+.projectsPanel {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+  width: min(1100px, 68vw);
+  margin-inline: auto;
+  padding: clamp(3rem, 6vw, 4.5rem) 0 clamp(2.5rem, 5vw, 3.5rem);
+  min-height: clamp(420px, 76svh, 800px);
+  display: flex;
+  flex-direction: column;
+}
+.projectsPanel > :last-child {
+  margin-block: auto;
+} /* carousel sits mid-panel */
+.projectsPanel::before {
+  /* full-width cream band behind the cards */
+  content: "";
+  position: absolute;
+  z-index: -2;
+  top: 21%;
+  bottom: 17%;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #e8dfc3 0%, #f3edd9 100%);
+}
+.projectsPanel::after {
+  /* the torn paper */
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -2% -3%;
+  background: url("../assets/tornPaper.png") center / 100% 100% no-repeat;
+}
+
+.projectsTitle {
+  margin: 0 0 clamp(1.25rem, 3vw, 2.5rem);
+  padding-inline: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: var(--font-display, Impact, sans-serif);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  font-size: clamp(1.6rem, 3.4vw, 2.75rem);
+  color: #000;
+}
+.projectsEmpty {
+  text-align: center;
+  color: #000;
+}
+
+@media (max-width: 900px) {
+  .projectsPanel {
+    width: calc(100% - 3rem);
+  }
+  .projectsPanel::before {
+    display: none;
+  }
+  .projectsTitle {
+    max-width: 7em;
+    margin-inline: auto;
+    font-size: clamp(2.4rem, 12.5vw, 3.6rem);
   }
 }
