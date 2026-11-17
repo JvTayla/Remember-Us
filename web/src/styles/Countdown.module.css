@@ -106,6 +106,27 @@
 .location {
   margin-top: 0.25rem;
   font-weight: 400;
+  overflow-wrap: anywhere;
+}
+.location a {
+  display: inline-block;
+  padding: 0.4rem 0;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.location a:hover,
+.location a:focus-visible {
+  text-decoration-thickness: 2px;
+}
+.location a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.location a:hover,
+.location a:focus-visible {
+  text-decoration-thickness: 2px;
 }
 .location a {
   color: inherit;
