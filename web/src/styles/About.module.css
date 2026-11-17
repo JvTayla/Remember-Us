@@ -1,0 +1,324 @@
+/* ============================================================
+   About page
+   Layout (from the wireframe):
+     - red band with "ABOUT US" + two teal asterisks
+     - left: WHO WE ARE, copy, three black stat tiles
+     - right: "Find People" search + grid of student photos
+     - closing red band
+   Breakpoints:
+     >= 960px  two columns, 6 photos per row
+     600-959px one column, 4 per row
+     < 600px   one column, 3 per row (2 per row under 380px)
+   ============================================================ */
+
+.page {
+  --about-red: var(--deep-red, #ca2f1d);
+  --about-teal: var(--deep-teal, #156468);
+  --search-red: #9e1b1b;
+  position: relative;
+}
+
+/* ---------- Top band + title ---------- */
+.band {
+  background: var(--about-red);
+  /* The floating nav sits on top of this band (main has no top padding
+     because .container overrides it), so pad down past the nav. */
+  padding: calc(var(--header-h) + clamp(1rem, 2.5vw, 2rem)) var(--space-2)
+    clamp(0.75rem, 2vw, 1.25rem);
+}
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.4rem, 1.5vw, 1.25rem);
+  margin: 0;
+  font-family: var(--font-body, Inter, system-ui, sans-serif);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 10vw, 7.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--ink, #0d0d0d);
+}
+.asterisk {
+  flex: none;
+  width: 0.6em;
+  height: 0.6em;
+  color: var(--about-teal);
+}
+
+/* ---------- Body: text column + people column ---------- */
+.body {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 3rem);
+  padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(2.5rem, 6vw, 4rem);
+}
+@media (min-width: 960px) {
+  .body {
+    grid-template-columns: minmax(16rem, 1fr) 2fr;
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+  }
+}
+
+/* Decorative drawings */
+.bunny {
+  display: none;
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  height: auto;
+}
+/* Only on wide screens, where there is spare margin beside the grid */
+@media (min-width: 1200px) {
+  .bunny {
+    display: block;
+    /* sits in the right margin, peeking over the top of the photo grid */
+    top: -1.5rem;
+    right: clamp(-10rem, -9vw, -6.5rem);
+    width: clamp(8rem, 10vw, 10rem);
+  }
+}
+.hand {
+  display: none;
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  height: auto;
+}
+@media (min-width: 1200px) {
+  .hand {
+    display: block;
+    left: clamp(-10rem, -9vw, -6.5rem);
+    bottom: 0;
+    width: clamp(6rem, 9vw, 8rem);
+  }
+}
+.intro,
+.peopleSection {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- WHO WE ARE ---------- */
+.heading {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-body, Inter, system-ui, sans-serif);
+  font-weight: 900;
+  font-size: clamp(1.75rem, 4vw, 2.4rem);
+  line-height: 1;
+  text-transform: uppercase;
+}
+.intro p {
+  max-width: 46ch;
+  margin: 0 0 var(--space-2);
+  font-size: clamp(0.78rem, 1.1vw, 0.85rem);
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Black stat tiles, same look as the countdown */
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: var(--space-3) 0 0;
+}
+@media (min-width: 960px) {
+  .facts {
+    justify-content: center;
+  }
+}
+.fact {
+  display: grid;
+  justify-items: center;
+  min-width: 4.75rem;
+  padding: 0.6rem 0.9rem 0.5rem;
+  background: var(--ink, #0d0d0d);
+  color: #fff;
+  border-radius: 6px;
+  text-align: center;
+}
+.fact strong {
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  font-weight: 400;
+  line-height: 1;
+}
+.fact span {
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Find People search ---------- */
+.people {
+  display: grid;
+  gap: 1rem;
+}
+.search {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 18rem);
+}
+@media (max-width: 959px) {
+  .search {
+    justify-self: stretch;
+    width: 100%;
+  }
+}
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 0.85rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  transform: translateY(-50%);
+  color: #fff;
+  pointer-events: none;
+}
+.searchInput {
+  width: 100%;
+  /* 16px+ stops iOS zooming in when the field is focused */
+  font: italic 700 1rem / 1.2 var(--font-body, Inter, system-ui, sans-serif);
+  color: #fff;
+  background: var(--search-red);
+  border: 2px solid var(--search-red);
+  border-radius: 999px;
+  padding: 0.55rem 1rem 0.55rem 2.5rem;
+  text-align: center;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.searchInput::placeholder {
+  color: #fff;
+  opacity: 1;
+}
+.searchInput:focus-visible {
+  outline: 3px solid var(--about-teal);
+  outline-offset: 3px;
+}
+/* Keep the clear (x) button visible on the red background */
+.searchInput::-webkit-search-cancel-button {
+  filter: invert(1);
+}
+
+/* ---------- Photo grid ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.4rem, 1vw, 0.6rem);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+@media (max-width: 379px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 600px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (min-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+.tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--grey-panel, #d9d9d9);
+  color: #fff;
+  text-decoration: none;
+}
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.initials {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-family: var(--font-serif, Georgia, serif);
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  color: var(--ink, #0d0d0d);
+}
+
+/* Name label: always shown on touch screens, slides up on hover elsewhere */
+.tileName {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 1.25rem 0.45rem 0.4rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.tileName small {
+  display: block;
+  font-weight: 400;
+  opacity: 0.85;
+}
+@media (hover: hover) {
+  .tileName {
+    transform: translateY(100%);
+    transition: transform 0.25s ease;
+  }
+  .tile:hover .tileName,
+  .tile:focus-visible .tileName {
+    transform: none;
+  }
+  .tile:hover img,
+  .tile:focus-visible img {
+    transform: scale(1.05);
+  }
+}
+.tile:focus-visible {
+  outline: 3px solid var(--about-teal);
+  outline-offset: 2px;
+}
+
+.empty {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+/* ---------- Closing band ---------- */
+.bandBottom {
+  height: clamp(2rem, 5vw, 3.5rem);
+  background: var(--about-red);
+}
+
+/* ---------- Helpers ---------- */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile img,
+  .tileName {
+    transition: none;
+  }
+}

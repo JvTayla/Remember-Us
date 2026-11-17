@@ -1,18 +1,38 @@
-import { existsSync } from "node:fs";
-import path from "node:path";
-import Link from "next/link";
-import { sanityFetch } from "@/lib/sanityClient";
-import { aboutStatsQuery } from "@/lib/queries";
+import Image from "next/image";
+import { sanityFetch, urlFor } from "@/lib/sanityClient";
+import { aboutStatsQuery, peopleQuery } from "@/lib/queries";
+import Asterisk from "@/components/decor/Asterisk";
+import PeopleSearchGrid from "@/components/people/PeopleSearchGrid";
+//import bunny from "@/assets/timeBunny.png";//
+import styles from "@/styles/About.module.css";
 
-export const metadata = { title: "About" };
+export const metadata = {
+  title: "About",
+  description: "Meet the graduating class behind Remember Us, the 2026 4th year exhibition.",
+};
 
-// Optional images: drop these into web/public/ and they appear automatically.
-const has = (file) => existsSync(path.join(process.cwd(), "public", file));
+async function safeFetch(query) {
+  try {
+    return await sanityFetch(query);
+  } catch {
+    return null;
+  }
+}
 
 export default async function About() {
-  const stats = await sanityFetch(aboutStatsQuery);
-  const hasPhoto = has("about-hero.jpg");
-  const hasArt = has("about-building.png");
+  const [stats, people] = await Promise.all([
+    safeFetch(aboutStatsQuery),
+    safeFetch(peopleQuery),
+  ]);
+
+  const peopleData = (people ?? []).map((p) => ({
+    name: p.name,
+    slug: p.slug,
+    role: p.role ?? null,
+    photoUrl: p.photo
+      ? urlFor(p.photo).width(400).height(400).fit("crop").auto("format").url()
+      : null,
+  }));
 
   const tiles = [
     { n: stats?.projects, label: "projects" },
@@ -21,45 +41,61 @@ export default async function About() {
   ].filter((t) => t.n > 0);
 
   return (
-    <>
-      <section
-        className={`about-band full-bleed bleed-top${hasPhoto ? " about-band--photo" : ""}`}
-      >
-        <h1>About</h1>
+    <div className={styles.page}>
+      <section className={`${styles.band} full-bleed`}>
+        <h1 className={styles.title}>
+          <Asterisk id="about-star-left" className={styles.asterisk} />
+          <span>About Us</span>
+          <Asterisk id="about-star-right" className={styles.asterisk} />
+        </h1>
       </section>
 
-      <section className={`about-body${hasArt ? " about-body--art" : ""}`}>
-        {hasArt && <div className="about-art" aria-hidden="true" />}
-        <div className="about-text">
-          <h2>Who we are</h2>
-          {/* PLACEHOLDER COPY: replace with your own text */}
+      <div className={styles.body}>
+        {/* Decorative drawings 
+        <Image
+          src={bunny}
+          alt=""
+          aria-hidden="true"
+          className={styles.bunny}
+          sizes="160px"
+        /> */}
+
+
+        <section className={styles.intro} aria-labelledby="who-we-are">
+          <h2 id="who-we-are" className={styles.heading}>
+            Who we are
+          </h2>
+          {/* HEY THIS IS JUST PLACEHOLER TEXT*/}
           <p>
-            Remember Us is the 2026 exhibition of 4th year creative project
-            work: animation, games, visual design, interactive media and more,
-            all made by one graduating class.
+            Remember Us is the 2026 exhibition of 4th year creative work from
+            the Wits School of Arts, Digital Arts: animation, games, visual
+            design, interactive media and more, all made by one graduating
+            class.
           </p>
           <p>
-            This site is the archive. Browse by category, meet the students
-            behind each project, and follow their links to see more of their
-            work.
+            This site is the archive. Find a student by name or role, open
+            their profile, and follow their links to see more of their work.
           </p>
 
           {tiles.length > 0 && (
-            <ul className="facts">
+            <ul className={styles.facts}>
               {tiles.map((t) => (
-                <li key={t.label} className="fact">
+                <li key={t.label} className={styles.fact}>
                   <strong>{t.n}</strong>
                   <span>{t.label}</span>
                 </li>
               ))}
             </ul>
           )}
+        </section>
 
-          <Link href="/archive" className="button">
-            Browse the archive
-          </Link>
-        </div>
-      </section>
-    </>
+        <section className={styles.peopleSection} aria-label="Students">
+          <PeopleSearchGrid people={peopleData} />
+        </section>
+      </div>
+
+      
+      <div className={`${styles.bandBottom} full-bleed`} aria-hidden="true" />
+    </div>
   );
 }
