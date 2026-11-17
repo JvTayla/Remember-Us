@@ -119,6 +119,15 @@
 .location a:focus-visible {
   text-decoration-thickness: 2px;
 }
+.location a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.location a:hover,
+.location a:focus-visible {
+  text-decoration-thickness: 2px;
+}
 .live {
   font-size: 1.5rem;
   margin: 1.6rem 0 1rem;
