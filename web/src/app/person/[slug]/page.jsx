@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { sanityFetch, urlFor } from "@/lib/sanityClient";
 import { personBySlugQuery } from "@/lib/queries";
 import PersonBio from "@/components/people/PersonBio";
-import ProjectGrid from "@/components/projects/ProjectGrid";
+import PersonProjects from "@/components/people/PersonProjects";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -34,8 +34,7 @@ export default async function Person({ params }) {
   return (
     <>
       <PersonBio person={{ ...person, slug }} />
-      <h2>Projects</h2>
-      <ProjectGrid projects={person.projects} />
+      <PersonProjects projects={person.projects} />
     </>
   );
 }
