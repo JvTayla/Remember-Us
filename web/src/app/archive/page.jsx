@@ -69,6 +69,12 @@ const FOLDERS = [
   },
   {
     matches: [(c) => c.slug === "games" || /^\s*games?\s*$/i.test(c.title ?? "")],
+    art: {
+      src: "/archive-art/games-invaders.png",
+      ratio: "979 / 748",
+      inset: true,        // sits in the middle of the folder, clear of the title and link
+      color: "#f0ece4",   // cream, because black is too dark on the teal folder
+    },
   },
   {
     // Two Sanity categories shown as ONE folder: their project counts are added up,

@@ -64,7 +64,7 @@
 
 .folder {
   --fb-bg: #b71c17;
-  --fb-fg: #000;
+  --fb-fg: #e3e2c4;
   position: relative;
   box-sizing: border-box;
   min-width: 0;
@@ -228,13 +228,25 @@
   display: block;
   animation: artIn 0.7s ease 0.1s both;
 }
-/* Artwork that doesn't bleed off the edges (e.g. the horses): pulled in from the sides,
-   and clear of the next folder's tab, which overlaps the right of the open folder */
+/* Artwork that doesn't bleed off the edges (horses, invaders). It's fitted inside a
+   free area of the folder: below the big title, above the count + link, and clear of the
+   next folder's tab, which overlaps the right side of the open folder. The picture
+   scales to fit this area without distortion. */
 .artInset {
   left: 2.25rem;
   right: calc(var(--r) + var(--tab-w) + 1.25rem);
+  top: 7.5rem;
+  bottom: 5.5rem;
+  transform: none;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 .folder:last-child .artInset { right: 2.25rem; }
+.folder[data-active="true"] .artInset { animation-name: artInsetIn; }
+@keyframes artInsetIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
 
 @keyframes artIn {
   from { opacity: 0; transform: translateY(-46%); }

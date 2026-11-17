@@ -78,7 +78,7 @@ export default function ArchiveFolders({ items }) {
                 style={{
                   "--art": `url(${c.art.src})`,
                   "--art-color": c.art.color ?? undefined,
-                  aspectRatio: c.art.ratio,
+                  aspectRatio: c.art.inset ? undefined : c.art.ratio,
                 }}
               />
             )}
