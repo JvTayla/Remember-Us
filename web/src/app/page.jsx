@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import CarouselCard from "@/components/projects/Carouselcard";
-import ProjectCarousel from "@/components/projects/ProjectCarousel";
+import ProjectCarousel from "@/components/projects/Projectcarousel";
 import { sanityFetch } from "@/lib/sanityClient";
 import { siteSettingsQuery, projectsQuery } from "@/lib/queries";
 import { LANDING_ONLY } from "@/lib/siteMode";
@@ -45,21 +45,21 @@ export default async function Home() {
       </section>
 
       {!LANDING_ONLY && (
-  <section className={styles.projects} id="projects">
-    <div className={styles.projectsPanel}>
-      <h2 className={styles.projectsTitle}>Creative Projects</h2>
-      {projects?.length ? (
-        <ProjectCarousel label="Creative projects">
-          {projects.map((p) => (
-            <CarouselCard key={p.slug} project={p} />
-          ))}
-        </ProjectCarousel>
-      ) : (
-        <p className={styles.projectsEmpty}>No projects yet.</p>
+        <section className={styles.projects} id="projects">
+          <div className={styles.projectsPanel}>
+            <h2 className={styles.projectsTitle}>Creative Projects</h2>
+            {projects?.length ? (
+              <ProjectCarousel label="Creative projects">
+                {projects.map((p) => (
+                  <CarouselCard key={p.slug} project={p} />
+                ))}
+              </ProjectCarousel>
+            ) : (
+              <p className={styles.projectsEmpty}>No projects yet.</p>
+            )}
+          </div>
+        </section>
       )}
-    </div>
-  </section>
-)}
     </>
   );
 }
