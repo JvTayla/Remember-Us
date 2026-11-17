@@ -46,7 +46,7 @@ export default function ProjectCarousel({ children, label = "Projects" }) {
         block: "nearest",
       });
     },
-    [items.length]
+    [items.length],
   );
 
   useEffect(() => {
