@@ -7,17 +7,17 @@
 .card:focus-visible {
   outline: 3px solid #000;
   outline-offset: 4px;
-  border-radius: 18px;
+  border-radius: 22px;
 }
 
-/* Black-outlined rounded card, image on top, grey info panel overlapping the bottom */
+/* Rounded card, image fills it, frosted-glass info panel floats over the bottom */
 .frame {
   position: relative;
-  border: 3px solid #000;
-  border-radius: 14px;
+  border-radius: 18px;
   overflow: hidden;
-  background: #000;
   aspect-ratio: 3 / 4;
+  /* no border now, so a soft shadow lifts the card off the paper */
+  box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.45);
   transition: transform 0.2s ease;
 }
 @media (hover: hover) {
@@ -44,12 +44,14 @@
   background: #d9d9d9;
 }
 
+/* ---- Frosted glass title panel ---- */
 .info {
-  --info-bg: #5babaa; /* teal from the palette. Change this one line to recolour the text panel */
+  /* Teal from the palette as R, G, B. Change this one line to recolour the glass. */
+  --info-tint: 91, 171, 170;
   position: absolute;
-  left: 4px;
-  right: 4px;
-  bottom: 4px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
   min-height: 36%;
   display: flex;
   flex-direction: column;
@@ -57,13 +59,24 @@
   justify-content: center;
   gap: 0.3rem;
   padding: 0.5rem 0.5rem 0.6rem;
-  background: var(--info-bg);
-  border: 3px solid #000;
-  border-radius: 12px;
+  /* white sheen over a teal tint: light enough that the black text stays readable
+     even on dark photos */
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.12) 100%),
+    rgba(var(--info-tint), 0.55);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  /* a hairline light edge, the way glass catches the light (not a border) */
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 14px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 8px 20px rgba(0, 0, 0, 0.18);
   text-align: center;
   color: #000;
   text-transform: uppercase;
   font-family: var(--font-display, Impact, sans-serif);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 .title {
   margin: 0;
@@ -103,5 +116,24 @@
   .genre,
   .more {
     font-size: 0.72rem;
+  }
+  /* lighter blur on phones: there are a dozen of these in the carousel */
+  .info {
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    backdrop-filter: blur(10px) saturate(150%);
+  }
+}
+
+/* No backdrop-filter support, or "reduce transparency" is on: a solid panel instead */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .info {
+    background: rgba(var(--info-tint), 0.92);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .info {
+    background: rgba(var(--info-tint), 0.95);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }

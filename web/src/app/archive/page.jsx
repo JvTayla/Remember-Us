@@ -84,9 +84,14 @@ const FOLDERS = [
       (c) => c.slug === "narrative" || /^\s*narrative\b/i.test(c.title ?? ""),
       (c) => c.slug === "visual-design" || /^\s*visual\s+design\s*$/i.test(c.title ?? ""),
     ],
+    art: {
+      src: "/archive-art/visual-design-pen.png",
+      ratio: "979 / 869",
+      inset: true, // sits in the middle of the folder, clear of the title and link
+    },
   },
   {
-    matches: [(c) => c.slug === "animation" || c.slug === "animations" || /^\s*animations?\s*$/i.test(c.title ?? "")],
+    matches: [(c) => c.slug === "animation" || /^\s*animations?\s*$/i.test(c.title ?? "")],
     art: {
       src: "/archive-art/animation-horses.png",
       ratio: "1199 / 803",
