@@ -7,9 +7,37 @@ import {
   projectsByCategoryQuery,
 } from "@/lib/queries";
 import { resolveFolders, DEFAULT_HERO } from "@/lib/ArchiveFolders";
-import CarouselCard from "@/components/projects/Carouselcard";
+import CarouselCard from "@/components/projects/CarouselCard";
 import CategoryFilter from "@/components/projects/CategoryFilter";
 import styles from "@/styles/Category.module.css";
+
+// ---- Search: what text can visitors find a project by? ----
+// Collects the text fields of a project (title, genre, description, student names...),
+// skipping images and internal ids. If your project has a field that isn't being found,
+// make sure it's included in the projectsByCategoryQuery.
+const SKIP_KEYS = new Set(["heroImage", "image", "images", "gallery", "asset", "url", "href"]);
+
+function collectText(value, depth = 0) {
+  if (value == null || depth > 4) return [];
+  if (typeof value === "string") return [value];
+  if (Array.isArray(value)) return value.flatMap((v) => collectText(v, depth + 1));
+  if (typeof value === "object") {
+    return Object.entries(value)
+      .filter(([key]) => !key.startsWith("_") && !SKIP_KEYS.has(key))
+      .flatMap(([, v]) => collectText(v, depth + 1));
+  }
+  return [];
+}
+
+function searchTextFor(project, folderPartTitle) {
+  return [...collectText(project), folderPartTitle]
+    .join(" ")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 // Which folder does this category belong to? (Narrative and Visual Design share one.)
 async function load(slug) {
@@ -62,7 +90,7 @@ export default async function Category({ params }) {
     for (const project of projects) {
       if (seen.has(project.slug)) continue;
       seen.add(project.slug);
-      cards.push({ sub: part.slug, project });
+      cards.push({ sub: part.slug, subTitle: part.title, project });
     }
   }
 
@@ -147,9 +175,14 @@ export default async function Category({ params }) {
           {cards.length === 0 ? (
             <p className={styles.empty}>No projects yet.</p>
           ) : (
-            <CategoryFilter filters={filters}>
-              {cards.map(({ sub, project }) => (
-                <div key={project.slug} data-sub={sub} className={styles.item}>
+            <CategoryFilter filters={filters} total={cards.length}>
+              {cards.map(({ sub, subTitle, project }) => (
+                <div
+                  key={project.slug}
+                  data-sub={sub}
+                  data-search={searchTextFor(project, subTitle)}
+                  className={styles.item}
+                >
                   <CarouselCard project={project} />
                 </div>
               ))}

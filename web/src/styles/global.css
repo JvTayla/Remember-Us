@@ -27,6 +27,7 @@ body {
 main {
   flex: 1;
   padding-top: var(--header-h);
+  
 }
 h1,
 h2,

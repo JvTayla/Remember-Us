@@ -1,6 +1,7 @@
 import { sanityFetch } from "@/lib/sanityClient";
 import { categoriesWithCountQuery } from "@/lib/queries";
 import { categoryTheme } from "@/lib/categoryTheme";
+import { resolveFolders } from "@/lib/ArchiveFolders";
 import styles from "@/styles/Archive.module.css";
 import ArchiveFolders from "./ArchiveFolders";
 
@@ -53,78 +54,26 @@ function folderColors(category) {
   };
 }
 
-/**
- * WHICH FOLDERS APPEAR, AND IN WHAT ORDER.
- * Only categories listed here are shown, in this order. Anything else in Sanity
- * (e.g. VR / XR) is left out of the archive. Each entry matches a category by
- * slug or title, so tweak `match` if one of yours is named differently.
- *
- * `art` is optional artwork shown while that folder is open. Files live in
- * /public/archive-art/. It's drawn in the folder's text colour unless `color` is set.
- */
-const FOLDERS = [
-  {
-    matches: [(c) => c.slug === "ai-im" || /^\s*ai\s*\+\s*im\s*$/i.test(c.title ?? "")],
-    art: { src: "/archive-art/ai-im-hands.png", ratio: "953 / 451" },
-  },
-  {
-    matches: [(c) => c.slug === "games" || /^\s*games?\s*$/i.test(c.title ?? "")],
-    art: {
-      src: "/archive-art/games-invaders.png",
-      ratio: "979 / 748",
-      inset: true,        // sits in the middle of the folder, clear of the title and link
-      color: "#f0ece4",   // cream, because black is too dark on the teal folder
-    },
-  },
-  {
-    // Two Sanity categories shown as ONE folder: their project counts are added up,
-    // and the folder links to the first one that matches.
-    title: "Narrative + Visual Design",
-    matches: [
-      (c) => c.slug === "narrative" || /^\s*narrative\b/i.test(c.title ?? ""),
-      (c) => c.slug === "visual-design" || /^\s*visual\s+design\s*$/i.test(c.title ?? ""),
-    ],
-    art: {
-      src: "/archive-art/visual-design-pen.png",
-      ratio: "979 / 869",
-      inset: true, // sits in the middle of the folder, clear of the title and link
-    },
-  },
-  {
-    matches: [(c) => c.slug === "animation" || /^\s*animations?\s*$/i.test(c.title ?? "")],
-    art: {
-      src: "/archive-art/animation-horses.png",
-      ratio: "1199 / 803",
-      inset: true, // pulled in from the sides, clear of any neighbouring tab
-    },
-  },
-];
+// Colours used inside the archive folders
+const TEXT_COLOR = "#ffffff"; // titles, project counts and "View projects" links
+const ART_COLOR = "#e3e2c4"; // beige: the pixel artwork (hands, invaders, pen, horses)
 
 export default async function Archive() {
   const categories = (await sanityFetch(categoriesWithCountQuery)) ?? [];
 
   // Plain data only: the folders are a client component (they react to hover)
-  const items = FOLDERS.flatMap((folder) => {
-    const found = folder.matches.map((m) => categories.find(m)).filter(Boolean);
-    if (!found.length) {
-      console.warn(
-        "[archive] No category matched one of the FOLDERS entries. Check its slug/title in Sanity.",
-        folder.matches.map(String)
-      );
-      return [];
-    }
-    const [primary] = found;
-    const { bg, fg } = folderColors(primary);
-    return [
-      {
-        slug: primary.slug,
-        title: folder.title ?? primary.title,
-        count: found.reduce((sum, c) => sum + (c.count ?? 0), 0),
-        bg,
-        fg,
-        art: folder.art ?? null,
-      },
-    ];
+  // Which folders show, their order, and which categories share a folder
+  // are all set in src/lib/archiveFolders.js
+  const items = resolveFolders(categories).map((f) => {
+    const { bg } = folderColors(f.primary);
+    return {
+      slug: f.slug,
+      title: f.title,
+      count: f.count,
+      bg,
+      fg: TEXT_COLOR,
+      art: f.art ? { ...f.art, color: ART_COLOR } : null,
+    };
   });
 
   return (

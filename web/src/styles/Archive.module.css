@@ -64,7 +64,7 @@
 
 .folder {
   --fb-bg: #b71c17;
-  --fb-fg: #e3e2c4;
+  --fb-fg: #000;
   position: relative;
   box-sizing: border-box;
   min-width: 0;
@@ -90,7 +90,16 @@
 
 /* The open folder */
 .folder[data-active="true"] {
-  padding: 2rem 2.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  /* extra right padding keeps the link clear of the next folder, which this one
+     runs under by the corner radius */
+  padding: 2rem calc(2.25rem + var(--r)) 2rem 2.25rem;
+}
+.folder:last-child[data-active="true"] {
+  padding-right: 2.25rem;
 }
 
 /* ---------- Tabs ---------- */
@@ -151,11 +160,11 @@
   animation: titleIn 0.45s ease 0.12s both;
 }
 
-/* Closed folder: count + link stacked at the bottom of the strip */
+/* Closed folder: the "View projects" link sits at the top of the strip */
 .meta {
   position: absolute;
-  left: 0.9rem;
-  bottom: 1.1rem;
+  left: 1rem;
+  top: 1.25rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -167,11 +176,6 @@
 }
 .folder:last-child .meta { max-width: calc(100% - 1.25rem); }
 
-.count {
-  font-size: 0.8rem;
-  font-weight: 600;
-  line-height: 1.2;
-}
 .cta {
   display: inline-flex;
   flex-wrap: wrap;
@@ -195,18 +199,18 @@
 .folder:focus-visible .ctaText { text-decoration: underline; }
 .folder:focus-visible .arrow { transform: translateX(4px); }
 
-/* Open folder: count on the left, link on the right */
+/* Open folder: title on the left, link on the right, both along the top */
+.folder[data-active="true"] .frontTitle {
+  flex: 1 1 auto;
+  min-width: 0;
+}
 .folder[data-active="true"] .meta {
-  left: 2.25rem;
-  right: 2.25rem;
-  bottom: 2rem;
+  position: static;
+  flex: none;
   max-width: none;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-between;
+  margin-top: 0.75rem;
   animation: metaInA 0.4s ease 0.15s both;
 }
-.folder[data-active="true"] .count { font-size: 1rem; }
 .folder[data-active="true"] .cta { font-size: 0.9rem; }
 
 /* Artwork inside an open folder (e.g. the pixel hands in AI + IM).
@@ -282,7 +286,7 @@
     border-radius: var(--r) var(--r) 0 0;
   }
   .folder[data-active]:first-child { margin-top: 0; }
-  .folder[data-active]:last-child { padding-bottom: 1.5rem; }
+  .folder[data-active]:last-child { padding: 1.1rem 1.25rem 1.5rem; }
 
   .folder[data-active] .tab {
     position: static;
@@ -309,11 +313,8 @@
     align-items: center;
     gap: 0.75rem;
     max-width: none;
+    margin-top: 0;
     animation: none;
-  }
-  .folder[data-active] .count {
-    font-size: 0.85rem;
-    white-space: nowrap;
   }
   /* small rows: just the arrow; the whole row is tappable */
   .folder[data-active] .cta { font-size: 1.25rem; }

@@ -84,9 +84,6 @@ export default function ArchiveFolders({ items }) {
             )}
 
             <span className={styles.meta}>
-              <span className={styles.count}>
-                {c.count} {c.count === 1 ? "project" : "projects"}
-              </span>
               <span className={styles.cta} aria-hidden="true">
                 <span className={styles.ctaText}>View projects</span>
                 <span className={styles.arrow}>→</span>
