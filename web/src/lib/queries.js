@@ -12,12 +12,12 @@ export const categoriesWithCountQuery = `*[_type == "category"] | order(order as
 }`;
 
 export const projectsQuery = `*[_type == "project"] | order(title asc){
-  title, "slug": slug.current, subType, shortDescription, heroImage,
+  title, "slug": slug.current, subType, shortDescription, heroImage, poster, "cardImage": coalesce(poster, heroImage),
   "category": category->{ title, "slug": slug.current }
 }`;
 
 export const projectsByCategoryQuery = `*[_type == "project" && category->slug.current == $slug] | order(title asc){
-  title, "slug": slug.current, subType, shortDescription, heroImage
+  title, "slug": slug.current, subType, shortDescription, heroImage, poster, "cardImage": coalesce(poster, heroImage)
 }`;
 
 export const categoryBySlugQuery = `*[_type == "category" && slug.current == $slug][0]{ title, subTypes }`;
@@ -34,7 +34,7 @@ export const peopleQuery = `*[_type == "person"] | order(name asc){ name, "slug"
 // + subType / shortDescription so project cards on the person page have their text
 export const personBySlugQuery = `*[_type == "person" && slug.current == $slug][0]{
   name, role, bio, photo, linkedin, socials,
-  "projects": *[_type == "project" && references(^._id)]{ title, "slug": slug.current, subType, shortDescription, heroImage }
+  "projects": *[_type == "project" && references(^._id)]{ title, "slug": slug.current, subType, shortDescription, heroImage, poster, "cardImage": coalesce(poster, heroImage) }
 }`;
 
 // Live counts for the About page tiles

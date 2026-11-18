@@ -61,72 +61,74 @@ export default async function Footer() {
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.inner}>
-        <div className={styles.brand}>
-          <Image
-            className={styles.logo}
-            src={logo}
-            alt="The Wits School of Arts, Digital Arts. Remember Us, Exhibition '26"
-            sizes="(max-width: 900px) 90vw, 480px"
-          />
-          <p className={styles.tagline}>
-            {settings?.tagline || "4th Year Creative Project Showcase"}
-          </p>
-        </div>
-
-        <div className={styles.links}>
-          <a
-            className={styles.social}
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              width="22"
-              height="22"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <rect x="3" y="3" width="18" height="18" rx="5" />
-              <circle cx="12" cy="12" r="4" />
-              <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
-            </svg>
-            <span>
-              Instagram
-              <small>{INSTAGRAM_HANDLE}</small>
-            </span>
-          </a>
-        </div>
-
-        <div className={styles.visit}>
-          <h2 className={styles.heading}>Find us</h2>
-          <p className={styles.location}>{location}</p>
-          <div className={styles.map}>
-            <iframe
-              src={embedUrl}
-              title="Map showing the exhibition location"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
+      <div className={styles.glass}>
+        <div className={styles.inner}>
+          <div className={styles.brand}>
+            <Image
+              className={styles.logo}
+              src={logo}
+              alt="The Wits School of Arts, Digital Arts. Remember Us, Exhibition '26"
+              sizes="(max-width: 900px) 90vw, 360px"
             />
+            <p className={styles.tagline}>
+              {settings?.tagline || "4th Year Creative Project Showcase"}
+            </p>
           </div>
-          <a
-            className={styles.mapLink}
-            href={openUrl}
-            target="_blank"
-            rel="noreferrer"
-          ></a>
-        </div>
-      </div>
 
-      <div className={styles.bottom}>
-        <p>&copy; Rememberus2026</p>
-        <a href="#top">Back to top &uarr;</a>
+          <div className={styles.links}>
+            <a
+              className={styles.social}
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="22"
+                height="22"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+              </svg>
+              <span>
+                Instagram
+                <small>{INSTAGRAM_HANDLE}</small>
+              </span>
+            </a>
+          </div>
+
+          <div className={styles.visit}>
+            <h2 className={styles.heading}>Find us</h2>
+            <p className={styles.location}>{location}</p>
+            <div className={styles.map}>
+              <iframe
+                src={embedUrl}
+                title="Map showing the exhibition location"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            </div>
+            <a
+              className={styles.mapLink}
+              href={openUrl}
+              target="_blank"
+              rel="noreferrer"
+            ></a>
+          </div>
+        </div>
+
+        <div className={styles.bottom}>
+          <p>&copy; Rememberus2026</p>
+          <a href="#top">Back to top &uarr;</a>
+        </div>
       </div>
     </footer>
   );

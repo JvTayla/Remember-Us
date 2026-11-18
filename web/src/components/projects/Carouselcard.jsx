@@ -3,8 +3,8 @@ import { urlFor } from "@/lib/sanityClient";
 import styles from "@/styles/Carouselcard.module.css";
 
 function getCardData(project) {
-  const image = project.heroImage
-    ? urlFor(project.heroImage).width(600).height(800).fit("crop").url()
+  const image = project.cardImage
+    ? urlFor(project.cardImage).width(600).height(800).fit("crop").url()
     : null;
 
   return {

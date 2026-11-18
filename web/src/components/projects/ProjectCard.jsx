@@ -10,9 +10,9 @@ export default function ProjectCard({ project }) {
         {project.shortDescription && <p>{project.shortDescription}</p>}
       </div>
       <div className="project-card__art">
-        {project.heroImage && (
+        {project.cardImage && (
           <img
-            src={urlFor(project.heroImage).width(900).height(600).url()}
+            src={urlFor(project.cardImage).width(900).height(600).url()}
             alt=""
             loading="lazy"
           />
