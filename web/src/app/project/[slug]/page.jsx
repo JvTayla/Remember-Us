@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { sanityFetch, urlFor } from "@/lib/sanityClient";
 import { projectBySlugQuery } from "@/lib/queries";
-import { categoryTheme } from "@/lib/categoryTheme";
 import ImageGallery from "@/components/projects/ImageGallery";
 import TeamCircle from "@/components/people/TeamCircle";
 
@@ -34,47 +33,66 @@ export default async function ProjectDetail({ params }) {
 
   if (!project) notFound();
 
-  return (
-    <div style={categoryTheme(project.category)}>
-      <section className="split split--project full-bleed bleed-top">
-        <div className="split__text">
-          <h1>{project.title}</h1>
-          {(project.shortDescription || project.subType) && (
-            <p>{project.shortDescription || project.subType}</p>
-          )}
-        </div>
-        <div className="split__art">
-          {project.heroImage && (
-            <img
-              src={urlFor(project.heroImage).width(1400).height(800).url()}
-              alt={project.title}
-            />
-          )}
-        </div>
-      </section>
+  // The overview is plain text in Sanity; each line break becomes a paragraph.
+  const paragraphs = (project.overview || "")
+    .split(/\n+/)
+    .map((p) => p.trim())
+    .filter(Boolean);
 
-      <section className="overview">
-        <h2>Overview</h2>
-        <p>{project.overview}</p>
-        {project.projectLink && (
-          <p>
-            <a
-              className="button"
-              href={project.projectLink}
-              target="_blank"
-              rel="noreferrer"
-            >
-              View project
-            </a>
+  return (
+    <div className="project-page">
+      <header className="project-hero">
+        <h1>{project.title}</h1>
+        {(project.shortDescription || project.subType) && (
+          <p className="project-hero__sub">
+            {project.shortDescription || project.subType}
           </p>
         )}
-      </section>
+      </header>
 
-      <ImageGallery images={project.gallery} title={project.title} />
+      {project.heroImage && (
+        <img
+          className="project-banner"
+          src={urlFor(project.heroImage)
+            .width(1600)
+            .height(400)
+            .fit("crop")
+            .url()}
+          alt={project.title}
+        />
+      )}
+
+      {(project.gallery?.length > 0 ||
+        paragraphs.length > 0 ||
+        project.projectLink) && (
+        <section className="project-overview">
+          <h2>Overview</h2>
+          <ImageGallery images={project.gallery} title={project.title} />
+          {paragraphs.length > 0 && (
+            <div className="project-overview__text">
+              {paragraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </div>
+          )}
+          {project.projectLink && (
+            <p className="project-overview__link">
+              <a
+                className="button"
+                href={project.projectLink}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View project
+              </a>
+            </p>
+          )}
+        </section>
+      )}
 
       {project.team?.length > 0 && (
         <section className="team">
-          <h2>Team</h2>
+          <h2 className="visually-hidden">Team</h2>
           <ul className="team-list">
             {project.team.map((p) => (
               <TeamCircle key={p.slug} person={p} />
