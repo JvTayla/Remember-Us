@@ -42,7 +42,17 @@ export default async function ProjectDetail({ params }) {
 
   return (
     <div className="project-page">
-      <BackLink href="/archive">Back to archive</BackLink>
+      <BackLink
+        href={
+          project.category?.slug
+            ? `/category/${project.category.slug}`
+            : "/archive"
+        }
+      >
+        {project.category?.title
+          ? `Back to ${project.category.title}`
+          : "Back to archive"}
+      </BackLink>
 
       <header className="project-hero">
         <h1>{project.title}</h1>
