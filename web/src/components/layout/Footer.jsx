@@ -68,7 +68,7 @@ export default async function Footer() {
               className={styles.logo}
               src={logo}
               alt="The Wits School of Arts, Digital Arts. Remember Us, Exhibition '26"
-              sizes="(max-width: 900px) 90vw, 480px"
+              sizes="(max-width: 900px) 90vw, 360px"
             />
             <p className={styles.tagline}>
               {settings?.tagline || "4th Year Creative Project Showcase"}

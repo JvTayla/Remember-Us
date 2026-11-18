@@ -4,7 +4,7 @@
   isolation: isolate;
   background: var(--foot-bg);
   color: #fff;
-  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem);
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1rem, 4vw, 3rem) clamp(1.25rem, 3vw, 2rem);
 }
 
 /* ---- The frosted glass panel ---- */
@@ -12,8 +12,8 @@
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: clamp(1.25rem, 3vw, 2.5rem);
-  border-radius: clamp(20px, 3vw, 32px);
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border-radius: clamp(18px, 2.5vw, 26px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   /* a soft white sheen, brightest at the top left */
   background: linear-gradient(
@@ -53,13 +53,13 @@
 .logo {
   display: block;
   width: 100%;
-  max-width: 480px;
+  max-width: 360px;
   height: auto;
 }
 .tagline {
-  margin: 1.7rem 0 0.5em;
+  margin: 0.9rem 0 0;
   font-family: var(--font-serif, Georgia, serif);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 .date {
   margin: 0;
@@ -160,8 +160,8 @@
 
 /* ---- bottom bar ---- */
 .bottom {
-  margin-top: clamp(1.25rem, 3vw, 1.75rem);
-  padding-top: 1rem;
+  margin-top: clamp(0.75rem, 2vw, 1.25rem);
+  padding-top: 0.75rem;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   justify-content: space-between;
