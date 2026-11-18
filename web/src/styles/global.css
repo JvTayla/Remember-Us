@@ -330,15 +330,90 @@ button:focus-visible {
 }
 
 /* ---------- Project page ---------- */
-.overview {
-  max-width: 70ch;
+.project-page {
+  position: relative;
+  isolation: isolate;
+  /* Clear the floating nav ourselves (like the profile header does) */
+  padding: calc(var(--header-h) + var(--space-3)) 0 var(--space-4);
 }
-.overview h2,
-.team h2 {
-  font-size: 1.1rem;
+/* Teal pixel scatter down the left edge of the window (decorative) */
+.project-page::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 38%;
+  left: calc(50% - 50vw);
+  width: 200px;
+  height: 450px;
+  background: url("/pixel-scatter.svg") left top / 100% 100% no-repeat;
+  pointer-events: none;
+}
+.project-hero {
+  text-align: center;
+  margin-bottom: var(--space-3);
+}
+.project-hero h1 {
+  font-family: var(--font-category);
+  font-size: clamp(2.2rem, 6vw, 3.75rem);
+  text-transform: uppercase;
+  line-height: 1;
+  overflow-wrap: anywhere;
+  margin: 0;
+}
+.project-hero__sub {
+  margin: 0.6rem 0 0;
+  color: var(--color-muted);
+}
+.project-banner {
+  display: block;
+  width: 100vw;
+  max-width: 100vw;
+  height: auto;
+  margin-left: calc(50% - 50vw);
+  object-fit: contain;
+  background: var(--grey-panel);
+}
+
+.project-overview {
+  margin-top: var(--space-3);
+  text-align: center;
+}
+.project-overview h2 {
   font-family: var(--font-body);
-  font-weight: 600;
-  margin: var(--space-4) 0 var(--space-1);
+  font-weight: 400;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 0 0 var(--space-2);
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  max-width: 880px;
+  margin: 0 auto var(--space-3);
+}
+.gallery img {
+  width: min(200px, calc(50% - 0.5rem));
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  background: var(--grey-panel);
+}
+.project-overview__text {
+  max-width: 70ch;
+  margin: 0 auto;
+  display: grid;
+  gap: 0.9rem;
+}
+.project-overview__text p {
+  margin: 0;
+  font-size: 0.95rem;
+  text-wrap: pretty;
+}
+.project-overview__link {
+  margin: var(--space-3) 0 0;
 }
 .button {
   display: inline-block;
@@ -352,54 +427,71 @@ button:focus-visible {
 .button:hover {
   background: var(--deep-red);
 }
-.gallery {
-  display: grid;
-  gap: var(--space-2);
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  margin-top: var(--space-3);
-}
-.gallery img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  display: block;
-}
 
+/* Team: small round photos with the name underneath */
+.team {
+  margin-top: var(--space-4);
+  text-align: center;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
 .team-list {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-3);
   list-style: none;
   padding: 0;
-  margin: var(--space-2) 0 0;
+  margin: 0;
 }
 .team-circle {
   display: grid;
   justify-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
   text-decoration: none;
   text-align: center;
-  width: 180px;
+  width: 120px;
 }
 .team-circle img,
 .team-circle .ph {
-  width: 180px;
-  height: 180px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   object-fit: cover;
   background: var(--grey-panel);
+  border: 2px solid var(--deep-teal);
 }
 .team-circle strong {
   font-weight: 500;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
 }
 .team-circle span {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   color: var(--color-muted);
 }
 .team-circle:hover strong {
   text-decoration: underline;
   text-underline-offset: 0.2em;
+}
+
+@media (max-width: 900px) {
+  .project-page::before {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .project-banner {
+    aspect-ratio: 2 / 1;
+  }
 }
 
 /* ---------- Person page ---------- */
@@ -574,3 +666,94 @@ button:focus-visible {
   }
 }
 
+/* ---------- About page ---------- */
+.about-band {
+  background: var(--red);
+  padding: calc(var(--header-h) + var(--space-3)) var(--space-2) var(--space-2);
+}
+.about-band h1 {
+  font-family: var(--font-title, Impact, sans-serif);
+  font-size: clamp(5rem, 24vw, 19rem);
+  line-height: 0.85;
+  text-align: center;
+  margin: 0;
+  color: #f1ecdc;
+  text-shadow: 0 0.02em 0.05em rgba(0, 0, 0, 0.3);
+}
+/* Only used when public/about-hero.jpg exists: the photo shows through the letters */
+.about-band--photo h1 {
+  background: url("/about-hero.jpg") center / cover;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: none;
+  filter: grayscale(1) contrast(1.2);
+}
+
+.about-body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  align-items: end;
+}
+.about-body--art {
+  grid-template-columns: 1fr 1fr;
+}
+.about-art {
+  min-height: 420px;
+  background: url("/about-building.png") left bottom / contain no-repeat;
+}
+.about-text {
+  max-width: 62ch;
+}
+.about-text h2 {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  margin: 0 0 var(--space-2);
+}
+.about-text p {
+  margin: 0 0 var(--space-2);
+}
+
+/* Black rounded tiles, same look as the countdown */
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+  margin: var(--space-3) 0;
+}
+.fact {
+  background: var(--ink);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 0.8rem 1.25rem;
+  text-align: center;
+  min-width: 7.5rem;
+}
+.fact strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1;
+}
+.fact span {
+  font-size: 0.8rem;
+}
+@media (max-width: 720px) {
+  .about-body--art {
+    grid-template-columns: 1fr;
+  }
+  .about-art {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card__art img,
+  .pane {
+    transition: none;
+  }
+}
