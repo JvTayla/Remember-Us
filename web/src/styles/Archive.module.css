@@ -28,7 +28,7 @@
   flex: none;
   width: 0.95em;
   height: 0.95em;
-  color: #b71c17;
+  object-fit: contain;
 }
 .lead {
   max-width: 56rem;
