@@ -126,10 +126,11 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 0.6rem 1rem;
     margin: clamp(0.75rem, 2vw, 1.25rem) 0 0;
   }
+  
   
   /* Filter chips (only when a folder holds more than one category) */
   .filters {
