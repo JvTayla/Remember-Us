@@ -1,13 +1,12 @@
-
+/* About page*/
 
 .page {
   --about-red: var(--deep-red, #ca2f1d);
   --about-teal: var(--deep-teal, #156468);
-  --search-red: #9e1b1b;
   position: relative;
 }
 
-/* Title */
+
 .band {
   background: var(--about-red);
   padding: calc(var(--header-h) + clamp(1rem, 2.5vw, 2rem)) var(--space-2)
@@ -35,7 +34,6 @@
   color: var(--about-teal);
 }
 
-
 .body {
   position: relative;
   display: grid;
@@ -47,7 +45,7 @@
   .body {
     grid-template-columns: minmax(16rem, 1fr) 2fr;
     gap: clamp(2rem, 4vw, 4rem);
-    align-items: start;
+    align-items: center;
   }
 }
 
@@ -59,6 +57,7 @@
   pointer-events: none;
   height: auto;
 }
+
 @media (min-width: 1200px) {
   .bunny {
     display: block;
@@ -88,7 +87,7 @@
   z-index: 1;
 }
 
-/*  WHO WE ARE - */
+/*  WHO WE ARE  */
 .heading {
   margin: 0 0 var(--space-2);
   font-family: var(--font-body, Inter, system-ui, sans-serif);
@@ -140,15 +139,16 @@
   letter-spacing: 0.02em;
 }
 
-/* Find People search */
+/*  People search */
+
 .people {
   display: grid;
   gap: 1rem;
 }
 .search {
   position: relative;
-  justify-self: end;
-  width: min(100%, 18rem);
+  justify-self: start; 
+  width: min(100%, 20rem);
 }
 @media (max-width: 959px) {
   .search {
@@ -159,32 +159,52 @@
 .searchIcon {
   position: absolute;
   top: 50%;
-  left: 0.85rem;
-  width: 1.1rem;
-  height: 1.1rem;
+  left: 1rem;
+  width: 1.15rem;
+  height: 1.15rem;
   transform: translateY(-50%);
   color: #fff;
   pointer-events: none;
+  z-index: 1; 
 }
+
+
+/*FROSTED GLASS SEARCH BAR*/
 .searchInput {
   width: 100%;
+
   font: italic 700 1rem / 1.2 var(--font-body, Inter, system-ui, sans-serif);
   color: #fff;
-  background: var(--search-red);
-  border: 2px solid var(--search-red);
+  background: linear-gradient(
+    135deg,
+    rgba(84, 132, 133, 0.9) 0%,
+    rgba(31, 72, 74, 0.92) 55%,
+    rgba(16, 41, 43, 0.95) 100%
+  );
+  border: 2px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
-  padding: 0.55rem 1rem 0.55rem 2.5rem;
-  text-align: center;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 6px 18px rgba(16, 41, 43, 0.22);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  backdrop-filter: blur(12px) saturate(140%);
+  padding: 0.65rem 1.1rem 0.65rem 2.75rem;
+  text-align: left;
   -webkit-appearance: none;
   appearance: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .searchInput::placeholder {
-  color: #fff;
+  color: rgba(255, 255, 255, 0.92);
   opacity: 1;
+}
+.searchInput:hover {
+  border-color: rgba(255, 255, 255, 0.45);
 }
 .searchInput:focus-visible {
   outline: 3px solid var(--about-teal);
   outline-offset: 3px;
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .searchInput::-webkit-search-cancel-button {
@@ -232,7 +252,7 @@
   display: block;
   transition: transform 0.3s ease;
 }
-
+/* Rotating grid: two stacked layers per block, the "on" one fades in */
 .layer {
   position: absolute;
   inset: 0;
@@ -297,12 +317,10 @@
   text-align: center;
 }
 
-
 .bandBottom {
   height: clamp(2rem, 5vw, 3.5rem);
   background: var(--about-red);
 }
-
 
 .srOnly {
   position: absolute;

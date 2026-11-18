@@ -5,7 +5,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import styles from "@/styles/About.module.css";
 
 const SLOT_COUNT = 24; 
-const CHANGE_EVERY_MS = 1600; 
+const CHANGE_EVERY_MS = 1200; 
 
 
 
