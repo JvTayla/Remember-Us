@@ -53,12 +53,14 @@ export default async function ProjectDetail({ params }) {
       {project.heroImage && (
         <img
           className="project-banner"
-          src={urlFor(project.heroImage).width(1600).height(400).fit("crop").url()}
-          alt={project.title}
+          src={project.banner}
+          alt={`${project.title} project banner`}
         />
       )}
 
-      {(project.gallery?.length > 0 || paragraphs.length > 0 || project.projectLink) && (
+      {(project.gallery?.length > 0 ||
+        paragraphs.length > 0 ||
+        project.projectLink) && (
         <section className="project-overview">
           <h2>Overview</h2>
           <ImageGallery images={project.gallery} title={project.title} />

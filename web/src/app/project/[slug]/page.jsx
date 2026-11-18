@@ -53,12 +53,8 @@ export default async function ProjectDetail({ params }) {
       {project.heroImage && (
         <img
           className="project-banner"
-          src={urlFor(project.heroImage)
-            .width(1600)
-            .height(400)
-            .fit("crop")
-            .url()}
-          alt={project.title}
+          src={project.banner}
+          alt={`${project.title} project banner`}
         />
       )}
 

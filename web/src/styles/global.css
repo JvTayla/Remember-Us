@@ -365,9 +365,11 @@ button:focus-visible {
 }
 .project-banner {
   display: block;
-  width: 100%;
-  aspect-ratio: 4 / 1;
-  object-fit: cover;
+  width: 100vw;
+  max-width: 100vw;
+  height: auto;
+  margin-left: calc(50% - 50vw);
+  object-fit: contain;
   background: var(--grey-panel);
 }
 
