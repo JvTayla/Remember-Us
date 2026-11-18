@@ -1,21 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import styles from "@/styles/About.module.css";
 
-// Search box + grid of student photos for the About page.
+const SLOT_COUNT = 24; 
+const CHANGE_EVERY_MS = 1600; 
+
+
+
+
 export default function PeopleSearchGrid({ people = [] }) {
   const [query, setQuery] = useState("");
   const inputId = useId();
+  const q = query.trim().toLowerCase();
 
   const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
     if (!q) return people;
     return people.filter((p) =>
       `${p.name} ${p.role ?? ""}`.toLowerCase().includes(q),
     );
-  }, [people, query]);
+  }, [people, q]);
 
   return (
     <div className={styles.people}>
@@ -47,37 +52,192 @@ export default function PeopleSearchGrid({ people = [] }) {
         />
       </form>
 
+
       <p className={styles.srOnly} aria-live="polite">
-        {query ? `${results.length} ${results.length === 1 ? "person" : "people"} found` : ""}
+        {q ? `${results.length} ${results.length === 1 ? "person" : "people"} found` : ""}
       </p>
 
-      {results.length > 0 ? (
+      {!q ? (
+        <RotatingGrid people={people} />
+      ) : results.length > 0 ? (
         <ul className={styles.grid}>
           {results.map((p) => (
             <li key={p.slug}>
               <Link href={`/person/${p.slug}`} className={styles.tile}>
-                {p.photoUrl ? (
-                  <img src={p.photoUrl} alt="" loading="lazy" />
-                ) : (
-                  <span className={styles.initials} aria-hidden="true">
-                    {initials(p.name)}
-                  </span>
-                )}
-                <span className={styles.tileName}>
-                  {p.name}
-                  {p.role && <small>{p.role}</small>}
-                </span>
+                <TileFace person={p} />
               </Link>
             </li>
           ))}
         </ul>
       ) : (
-        <p className={styles.empty}>
-          {people.length ? `No one matches “${query}”.` : "Students coming soon."}
-        </p>
+        <p className={styles.empty}>No one matches “{query.trim()}”.</p>
       )}
     </div>
   );
+}
+
+
+
+function RotatingGrid({ people }) {
+
+  const [slots, setSlots] = useState(() => initialSlots(people));
+  const hovered = useRef(null); 
+  const lastChanged = useRef(null); 
+  const slotsRef = useRef(slots); 
+  slotsRef.current = slots;
+
+
+  useEffect(() => setSlots(initialSlots(people)), [people]);
+
+  useEffect(() => {
+    if (people.length < 2) return; 
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduceMotion.matches) return; 
+
+    let cancelled = false;
+    const timer = setInterval(() => {
+      if (document.hidden) return; 
+
+      const current = slotsRef.current;
+      const slotIndex = pickSlot(current.length, hovered.current, lastChanged.current);
+      if (slotIndex === null) return;
+      const next = pickPerson(people, current, slotIndex);
+      if (!next) return;
+      lastChanged.current = slotIndex;
+
+
+      preload(next.photoUrl).then(() => {
+        if (cancelled) return;
+        setSlots((latest) =>
+          latest.map((s, i) => {
+            if (i !== slotIndex || i === hovered.current) return s;
+            const back = 1 - s.front;
+            const layers = [...s.layers];
+            layers[back] = next;
+            return { layers, front: back };
+          }),
+        );
+      });
+    }, CHANGE_EVERY_MS);
+
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+    };
+  }, [people]);
+
+
+  if (people.length === 0) {
+    return (
+      <>
+        <p className={styles.srOnly}>Students coming soon.</p>
+        <ul className={`${styles.grid} ${styles.rotating}`} aria-hidden="true">
+          {Array.from({ length: SLOT_COUNT }, (_, i) => (
+            <li key={i}>
+              <span className={styles.tile} />
+            </li>
+          ))}
+        </ul>
+      </>
+    );
+  }
+
+  return (
+    <>
+
+      <ul className={styles.srOnly} aria-label="All students">
+        {people.map((p) => (
+          <li key={p.slug}>
+            <Link href={`/person/${p.slug}`}>{p.name}</Link>
+          </li>
+        ))}
+      </ul>
+
+
+      <ul className={`${styles.grid} ${styles.rotating}`} aria-hidden="true">
+        {slots.map((slot, i) => {
+          const showing = slot.layers[slot.front];
+          return (
+            <li key={i}>
+              <Link
+                href={`/person/${showing.slug}`}
+                className={styles.tile}
+                tabIndex={-1}
+                onMouseEnter={() => (hovered.current = i)}
+                onMouseLeave={() => (hovered.current = null)}
+              >
+                {slot.layers.map((p, layer) => (
+                  <span
+                    key={layer}
+                    className={`${styles.layer} ${layer === slot.front ? styles.layerOn : ""}`}
+                  >
+                    <TileFace person={p} />
+                  </span>
+                ))}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </>
+  );
+}
+
+
+function TileFace({ person }) {
+  return (
+    <>
+      {person.photoUrl ? (
+        <img src={person.photoUrl} alt="" loading="lazy" />
+      ) : (
+        <span className={styles.initials} aria-hidden="true">
+          {initials(person.name)}
+        </span>
+      )}
+      <span className={styles.tileName}>
+        {person.name}
+        {person.role && <small>{person.role}</small>}
+      </span>
+    </>
+  );
+}
+
+
+
+function initialSlots(people) {
+  if (!people.length) return [];
+  return Array.from({ length: SLOT_COUNT }, (_, i) => {
+    const p = people[i % people.length];
+    return { layers: [p, p], front: 0 };
+  });
+}
+
+
+function pickSlot(count, hoveredIndex, lastIndex) {
+  const options = [];
+  for (let i = 0; i < count; i++) {
+    if (i !== hoveredIndex && i !== lastIndex) options.push(i);
+  }
+  return options.length ? options[Math.floor(Math.random() * options.length)] : null;
+}
+
+
+
+function pickPerson(people, slots, slotIndex) {
+  const onScreen = new Set(slots.map((s) => s.layers[s.front].slug));
+  const current = slots[slotIndex].layers[slots[slotIndex].front].slug;
+  let pool = people.filter((p) => !onScreen.has(p.slug));
+  if (!pool.length) pool = people.filter((p) => p.slug !== current);
+  return pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;
+}
+
+function preload(src) {
+  if (!src) return Promise.resolve();
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = img.onerror = () => resolve();
+    img.src = src;
+  });
 }
 
 function initials(name = "") {

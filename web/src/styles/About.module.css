@@ -1,15 +1,4 @@
-/* ============================================================
-   About page
-   Layout (from the wireframe):
-     - red band with "ABOUT US" + two teal asterisks
-     - left: WHO WE ARE, copy, three black stat tiles
-     - right: "Find People" search + grid of student photos
-     - closing red band
-   Breakpoints:
-     >= 960px  two columns, 6 photos per row
-     600-959px one column, 4 per row
-     < 600px   one column, 3 per row (2 per row under 380px)
-   ============================================================ */
+
 
 .page {
   --about-red: var(--deep-red, #ca2f1d);
@@ -18,11 +7,9 @@
   position: relative;
 }
 
-/* ---------- Top band + title ---------- */
+/* Title */
 .band {
   background: var(--about-red);
-  /* The floating nav sits on top of this band (main has no top padding
-     because .container overrides it), so pad down past the nav. */
   padding: calc(var(--header-h) + clamp(1rem, 2.5vw, 2rem)) var(--space-2)
     clamp(0.75rem, 2vw, 1.25rem);
 }
@@ -48,7 +35,7 @@
   color: var(--about-teal);
 }
 
-/* ---------- Body: text column + people column ---------- */
+
 .body {
   position: relative;
   display: grid;
@@ -72,11 +59,9 @@
   pointer-events: none;
   height: auto;
 }
-/* Only on wide screens, where there is spare margin beside the grid */
 @media (min-width: 1200px) {
   .bunny {
     display: block;
-    /* sits in the right margin, peeking over the top of the photo grid */
     top: -1.5rem;
     right: clamp(-10rem, -9vw, -6.5rem);
     width: clamp(8rem, 10vw, 10rem);
@@ -103,7 +88,7 @@
   z-index: 1;
 }
 
-/* ---------- WHO WE ARE ---------- */
+/*  WHO WE ARE - */
 .heading {
   margin: 0 0 var(--space-2);
   font-family: var(--font-body, Inter, system-ui, sans-serif);
@@ -121,7 +106,6 @@
   text-transform: uppercase;
 }
 
-/* Black stat tiles, same look as the countdown */
 .facts {
   display: flex;
   flex-wrap: wrap;
@@ -156,7 +140,7 @@
   letter-spacing: 0.02em;
 }
 
-/* ---------- Find People search ---------- */
+/* Find People search */
 .people {
   display: grid;
   gap: 1rem;
@@ -184,7 +168,6 @@
 }
 .searchInput {
   width: 100%;
-  /* 16px+ stops iOS zooming in when the field is focused */
   font: italic 700 1rem / 1.2 var(--font-body, Inter, system-ui, sans-serif);
   color: #fff;
   background: var(--search-red);
@@ -203,12 +186,12 @@
   outline: 3px solid var(--about-teal);
   outline-offset: 3px;
 }
-/* Keep the clear (x) button visible on the red background */
+
 .searchInput::-webkit-search-cancel-button {
   filter: invert(1);
 }
 
-/* ---------- Photo grid ---------- */
+/*  Photo grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -249,6 +232,23 @@
   display: block;
   transition: transform 0.3s ease;
 }
+
+.layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.9s ease; /* fade length */
+}
+.layerOn {
+  opacity: 1;
+}
+
+@media (max-width: 599px) {
+  .rotating li:nth-child(n + 13) {
+    display: none;
+  }
+}
+
 .initials {
   display: grid;
   place-items: center;
@@ -258,7 +258,7 @@
   color: var(--ink, #0d0d0d);
 }
 
-/* Name label: always shown on touch screens, slides up on hover elsewhere */
+
 .tileName {
   position: absolute;
   inset: auto 0 0 0;
@@ -297,13 +297,13 @@
   text-align: center;
 }
 
-/* ---------- Closing band ---------- */
+
 .bandBottom {
   height: clamp(2rem, 5vw, 3.5rem);
   background: var(--about-red);
 }
 
-/* ---------- Helpers ---------- */
+
 .srOnly {
   position: absolute;
   width: 1px;
@@ -318,7 +318,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .tile img,
-  .tileName {
+  .tileName,
+  .layer {
     transition: none;
   }
 }
