@@ -3,8 +3,11 @@ import { sanityFetch, urlFor } from "@/lib/sanityClient";
 import { aboutStatsQuery, peopleQuery } from "@/lib/queries";
 import Asterisk from "@/components/decor/Asterisk";
 import PeopleSearchGrid from "@/components/people/PeopleSearchGrid";
-//import bunny from "@/assets/timeBunny.png";//
+import bunny from "@/assets/timeBunny.png";
+import onePieceMan from "@/assets/onePieceMan.png";
 import styles from "@/styles/About.module.css";
+
+
 
 export const metadata = {
   title: "About",
@@ -51,14 +54,22 @@ export default async function About() {
       </section>
 
       <div className={styles.body}>
-        {/* Decorative drawings 
+   
         <Image
           src={bunny}
           alt=""
           aria-hidden="true"
           className={styles.bunny}
           sizes="160px"
-        /> */}
+        /> 
+
+        <Image
+          src={onePieceMan}
+          alt=""
+          aria-hidden="true"
+          className={styles.onePieceMan}
+          sizes="160px"
+        /> 
 
 
         <section className={styles.intro} aria-labelledby="who-we-are">
