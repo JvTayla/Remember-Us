@@ -7,7 +7,7 @@ import {
   projectsByCategoryQuery,
 } from "@/lib/queries";
 import { resolveFolders, DEFAULT_HERO } from "@/lib/ArchiveFolders";
-import CarouselCard from "@/components/projects/CarouselCard";
+import CarouselCard from "@/components/projects/Carouselcard";
 import CategoryFilter from "@/components/projects/CategoryFilter";
 import styles from "@/styles/Category.module.css";
 
