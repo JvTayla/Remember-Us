@@ -1,4 +1,4 @@
-/*this is the star thingies*/
+
 export default function Asterisk({ id, className }) {
   return (
     <svg className={className} viewBox="0 0 100 100" aria-hidden="true" focusable="false">
@@ -20,3 +20,4 @@ export default function Asterisk({ id, className }) {
     </svg>
   );
 }
+

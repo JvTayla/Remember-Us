@@ -2,7 +2,7 @@
 
 .page {
   --about-red: var(--deep-red, #ca2f1d);
-  --about-teal: var(--deep-teal, #156468);
+  
   position: relative;
 }
 
@@ -29,9 +29,9 @@
 }
 .asterisk {
   flex: none;
-  width: 0.6em;
-  height: 0.6em;
-  color: var(--about-teal);
+  width: 0.8em;        
+  height: auto;        
+  object-fit: contain;
 }
 
 .body {

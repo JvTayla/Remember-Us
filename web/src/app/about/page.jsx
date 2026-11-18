@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { sanityFetch, urlFor } from "@/lib/sanityClient";
 import { aboutStatsQuery, peopleQuery } from "@/lib/queries";
-import Asterisk from "@/components/decor/Asterisk";
+import star from "@/assets/star2.png";
 import PeopleSearchGrid from "@/components/people/PeopleSearchGrid";
 import bunny from "@/assets/timeBunny.png";
 import onePieceMan from "@/assets/onePieceMan.png";
@@ -47,9 +47,9 @@ export default async function About() {
     <div className={styles.page}>
       <section className={`${styles.band} full-bleed`}>
         <h1 className={styles.title}>
-          <Asterisk id="about-star-left" className={styles.asterisk} />
+          <Image src={star} alt="" aria-hidden="true" className={styles.asterisk} sizes="80px" />
           <span>About Us</span>
-          <Asterisk id="about-star-right" className={styles.asterisk} />
+          <Image src={star} alt="" aria-hidden="true" className={styles.asterisk} sizes="80px" />
         </h1>
       </section>
 
