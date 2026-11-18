@@ -3,6 +3,7 @@ import { sanityFetch, urlFor } from "@/lib/sanityClient";
 import { projectBySlugQuery } from "@/lib/queries";
 import ImageGallery from "@/components/projects/ImageGallery";
 import TeamCircle from "@/components/people/TeamCircle";
+import BackLink from "@/components/layout/BackLink";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -41,6 +42,8 @@ export default async function ProjectDetail({ params }) {
 
   return (
     <div className="project-page">
+      <BackLink href="/archive">Back to archive</BackLink>
+
       <header className="project-hero">
         <h1>{project.title}</h1>
         {(project.shortDescription || project.subType) && (
@@ -53,7 +56,7 @@ export default async function ProjectDetail({ params }) {
       {project.heroImage && (
         <img
           className="project-banner"
-          src={project.banner}
+          src={urlFor(project.heroImage).width(2000).url()}
           alt={`${project.title} project banner`}
         />
       )}

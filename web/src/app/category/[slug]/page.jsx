@@ -15,7 +15,7 @@ import styles from "@/styles/Category.module.css";
 // Collects the text fields of a project (title, genre, description, student names...),
 // skipping images and internal ids. If your project has a field that isn't being found,
 // make sure it's included in the projectsByCategoryQuery.
-const SKIP_KEYS = new Set(["heroImage", "image", "images", "gallery", "asset", "url", "href"]);
+const SKIP_KEYS = new Set(["heroImage", "poster", "cardImage", "image", "images", "gallery", "asset", "url", "href"]);
 
 function collectText(value, depth = 0) {
   if (value == null || depth > 4) return [];

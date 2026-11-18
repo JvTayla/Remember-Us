@@ -1,5 +1,3 @@
-
-
 export const DEFAULT_HERO = { bg: "#b71c17", fg: "#ffffff" };
 
 const norm = (c) => c.title ?? "";
@@ -8,7 +6,9 @@ export const FOLDERS = [
   {
     key: "ai-im",
     hero: { bg: "#b71c17", fg: "#ffffff" },
-    matches: [(c) => c.slug === "ai-im" || /^\s*ai\s*\+\s*im\s*$/i.test(norm(c))],
+    matches: [
+      (c) => c.slug === "ai-im" || /^\s*ai\s*\+\s*im\s*$/i.test(norm(c)),
+    ],
     art: { src: "/archive-art/ai-im-hands.png", ratio: "953 / 451" },
   },
   {
@@ -18,8 +18,8 @@ export const FOLDERS = [
     art: {
       src: "/archive-art/games-invaders.png",
       ratio: "979 / 748",
-      inset: true,        // archive: sits in the middle of the folder
-      color: "#f0ece4",   // cream, because black is too dark on teal
+      inset: true, // archive: sits in the middle of the folder
+      color: "#f0ece4", // cream, because black is too dark on teal
     },
   },
   {
@@ -30,15 +30,26 @@ export const FOLDERS = [
     hero: { bg: "#509c99", fg: "#0e2f31" },
     matches: [
       (c) => c.slug === "narrative" || /^\s*narrative\b/i.test(norm(c)),
-      (c) => c.slug === "visual-design" || /^\s*visual\s+design\s*$/i.test(norm(c)),
+      (c) =>
+        c.slug === "visual-design" || /^\s*visual\s+design\s*$/i.test(norm(c)),
     ],
-    art: { src: "/archive-art/visual-design-pen.png", ratio: "979 / 869", inset: true },
+    art: {
+      src: "/archive-art/visual-design-pen.png",
+      ratio: "979 / 869",
+      inset: true,
+    },
   },
   {
-    key: "animation",
+    key: "animations",
     hero: { bg: "#b71c17", fg: "#ffffff" },
-    matches: [(c) => c.slug === "animation" || /^\s*animation\s*$/i.test(norm(c))],
-    art: { src: "/archive-art/animation-horses.png", ratio: "1199 / 803", inset: true },
+    matches: [
+      (c) => c.slug === "animations" || /^\s*animations\s*$/i.test(norm(c)),
+    ],
+    art: {
+      src: "/archive-art/animation-horses.png",
+      ratio: "1199 / 803",
+      inset: true,
+    },
   },
 ];
 
@@ -56,7 +67,7 @@ export function resolveFolders(categories, { warn = true } = {}) {
       if (warn) {
         console.warn(
           "[archive] No category matched this folder. Check its slug/title in Sanity:",
-          folder.key
+          folder.key,
         );
       }
       return [];
@@ -69,7 +80,11 @@ export function resolveFolders(categories, { warn = true } = {}) {
         slug: primary.slug,
         primary,
         count: found.reduce((sum, c) => sum + (c.count ?? 0), 0),
-        parts: found.map((c) => ({ slug: c.slug, title: c.title, count: c.count ?? 0 })),
+        parts: found.map((c) => ({
+          slug: c.slug,
+          title: c.title,
+          count: c.count ?? 0,
+        })),
         art: folder.art ?? null,
         hero: folder.hero ?? DEFAULT_HERO,
       },

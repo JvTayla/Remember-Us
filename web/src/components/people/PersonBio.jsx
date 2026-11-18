@@ -1,5 +1,6 @@
 import { urlFor } from "@/lib/sanityClient";
 import SocialLinks from "./SocialLinks";
+import BackLink from "@/components/layout/BackLink";
 
 // Profile header on the person page: big name, role line and bio on the left,
 // portrait on the right. Matches the "people profile" mockup.
@@ -13,6 +14,7 @@ export default function PersonBio({ person }) {
   return (
     <article className="person-hero">
       <div className="person-hero__text">
+        <BackLink href="/about">Back to about us</BackLink>
         <h1>{person.name}</h1>
         {person.role && <p className="person-hero__role">{person.role}</p>}
         {paragraphs.length > 0 && (

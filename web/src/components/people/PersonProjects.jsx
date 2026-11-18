@@ -6,7 +6,10 @@ import { urlFor } from "@/lib/sanityClient";
 // (The category page keeps using ProjectGrid; this one is profile-only.)
 export default function PersonProjects({ projects }) {
   return (
-    <section className="person-projects" aria-labelledby="person-projects-title">
+    <section
+      className="person-projects"
+      aria-labelledby="person-projects-title"
+    >
       <hr className="person-projects__rule full-bleed" />
       <h2 id="person-projects-title" className="person-projects__title">
         Portfolio / Projects
@@ -18,9 +21,9 @@ export default function PersonProjects({ projects }) {
             <li key={p.slug}>
               <Link href={`/project/${p.slug}`} className="portfolio-card">
                 <div className="portfolio-card__art">
-                  {p.heroImage ? (
+                  {p.cardImage ? (
                     <img
-                      src={urlFor(p.heroImage).width(600).height(800).url()}
+                      src={urlFor(p.cardImage).width(600).height(800).url()}
                       alt=""
                       loading="lazy"
                     />
