@@ -45,7 +45,7 @@ export default function PeopleSearchGrid({ people = [] }) {
           id={inputId}
           className={styles.searchInput}
           type="search"
-          placeholder="Find People"
+          placeholder="Search People"
           autoComplete="off"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
