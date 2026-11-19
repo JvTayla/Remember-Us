@@ -7,11 +7,10 @@ import bunny from "@/assets/timeBunny.png";
 import onePieceMan from "@/assets/onePieceMan.png";
 import styles from "@/styles/About.module.css";
 
-
-
 export const metadata = {
   title: "About",
-  description: "Meet the graduating class behind Remember Us, the 2026 4th year exhibition.",
+  description:
+    "Meet the graduating class behind Remember Us, the 2026 4th year exhibition.",
 };
 
 async function safeFetch(query) {
@@ -47,21 +46,32 @@ export default async function About() {
     <div className={styles.page}>
       <section className={`${styles.band} full-bleed`}>
         <h1 className={styles.title}>
-          <Image src={star} alt="" aria-hidden="true" className={styles.asterisk} sizes="80px" />
+          <Image
+            src={star}
+            alt=""
+            aria-hidden="true"
+            className={styles.asterisk}
+            sizes="80px"
+          />
           <span>About Us</span>
-          <Image src={star} alt="" aria-hidden="true" className={styles.asterisk} sizes="80px" />
+          <Image
+            src={star}
+            alt=""
+            aria-hidden="true"
+            className={styles.asterisk}
+            sizes="80px"
+          />
         </h1>
       </section>
 
       <div className={styles.body}>
-   
         <Image
           src={bunny}
           alt=""
           aria-hidden="true"
           className={styles.bunny}
           sizes="160px"
-        /> 
+        />
 
         <Image
           src={onePieceMan}
@@ -69,8 +79,7 @@ export default async function About() {
           aria-hidden="true"
           className={styles.onePieceMan}
           sizes="160px"
-        /> 
-
+        />
 
         <section className={styles.intro} aria-labelledby="who-we-are">
           <h2 id="who-we-are" className={styles.heading}>
@@ -84,8 +93,8 @@ export default async function About() {
             class.
           </p>
           <p>
-            This site is the archive. Find a student by name or role, open
-            their profile, and follow their links to see more of their work.
+            This site is the archive. Find a student by name or role, open their
+            profile, and follow their links to see more of their work.
           </p>
 
           {tiles.length > 0 && (
@@ -105,7 +114,6 @@ export default async function About() {
         </section>
       </div>
 
-      
       <div className={`${styles.bandBottom} full-bleed`} aria-hidden="true" />
     </div>
   );
