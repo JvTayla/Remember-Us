@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { sanityFetch, urlFor } from "@/lib/sanityClient";
 import { aboutStatsQuery, peopleQuery } from "@/lib/queries";
-import star from "@/assets/star2.png";
+import star from "@/assets/Star2.png";
 import PeopleSearchGrid from "@/components/people/PeopleSearchGrid";
 import bunny from "@/assets/timeBunny.png";
 import onePieceMan from "@/assets/onePieceMan.png";
