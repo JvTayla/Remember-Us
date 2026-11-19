@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import CarouselCard from "@/components/projects/Carouselcard";
+import CarouselCard from "@/components/projects/CarouselCard";
 import ProjectCarousel from "@/components/projects/Projectcarousel";
 import { sanityFetch } from "@/lib/sanityClient";
 import { siteSettingsQuery, projectsQuery } from "@/lib/queries";

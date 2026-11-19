@@ -7,7 +7,7 @@ import {
   projectsByCategoryQuery,
 } from "@/lib/queries";
 import { resolveFolders, DEFAULT_HERO } from "@/lib/ArchiveFolders";
-import CarouselCard from "@/components/projects/Carouselcard";
+import CarouselCard from "@/components/projects/CarouselCard";
 import CategoryFilter from "@/components/projects/CategoryFilter";
 import styles from "@/styles/Category.module.css";
 
@@ -15,12 +15,23 @@ import styles from "@/styles/Category.module.css";
 // Collects the text fields of a project (title, genre, description, student names...),
 // skipping images and internal ids. If your project has a field that isn't being found,
 // make sure it's included in the projectsByCategoryQuery.
-const SKIP_KEYS = new Set(["heroImage", "poster", "cardImage", "image", "images", "gallery", "asset", "url", "href"]);
+const SKIP_KEYS = new Set([
+  "heroImage",
+  "poster",
+  "cardImage",
+  "image",
+  "images",
+  "gallery",
+  "asset",
+  "url",
+  "href",
+]);
 
 function collectText(value, depth = 0) {
   if (value == null || depth > 4) return [];
   if (typeof value === "string") return [value];
-  if (Array.isArray(value)) return value.flatMap((v) => collectText(v, depth + 1));
+  if (Array.isArray(value))
+    return value.flatMap((v) => collectText(v, depth + 1));
   if (typeof value === "object") {
     return Object.entries(value)
       .filter(([key]) => !key.startsWith("_") && !SKIP_KEYS.has(key))
@@ -81,7 +92,8 @@ export default async function Category({ params }) {
   const groups = await Promise.all(
     folder.parts.map(async (part) => ({
       part,
-      projects: (await sanityFetch(projectsByCategoryQuery, { slug: part.slug })) ?? [],
+      projects:
+        (await sanityFetch(projectsByCategoryQuery, { slug: part.slug })) ?? [],
     })),
   );
   const seen = new Set();
@@ -108,10 +120,12 @@ export default async function Category({ params }) {
       : null;
 
   const index = folders.findIndex((f) => f.key === folder.key);
-  const next = folders.length > 1 ? folders[(index + 1) % folders.length] : null;
+  const next =
+    folders.length > 1 ? folders[(index + 1) % folders.length] : null;
   const number = index >= 0 ? String(index + 1).padStart(2, "0") : null;
 
-  const names = folder.parts.length > 1 ? folder.parts.map((p) => p.title) : [folder.title];
+  const names =
+    folder.parts.length > 1 ? folder.parts.map((p) => p.title) : [folder.title];
   const countText = `${cards.length} ${cards.length === 1 ? "project" : "projects"}`;
   const { bg, fg } = folder.hero;
 
@@ -134,7 +148,8 @@ export default async function Category({ params }) {
           </p>
           <h1 className={styles.title}>{folder.title}</h1>
           <p className={styles.lead}>
-            A selection of {names.join(" and ")} projects from our 4th year students.
+            A selection of {names.join(" and ")} projects from our 4th year
+            students.
           </p>
         </div>
 
