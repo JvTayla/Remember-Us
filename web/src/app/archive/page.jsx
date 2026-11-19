@@ -12,17 +12,21 @@ export const metadata = {
   description: "Browse every 4th year project by category.",
 };
 
-
-
 /**
  * ADAPTER: maps whatever categoryTheme() returns onto the folder's colours.
- * If your folders show the fallback red / teal colours instead of each
+ * If your folders show the fallback red /    fefwsvwe teal colours instead of each
  * category's own colour, check what keys categoryTheme returns and add them here.
  */
 function folderColors(category) {
   const t = categoryTheme(category) ?? {};
   return {
-    bg: t.background ?? t.backgroundColor ?? t["--pane-bg"] ?? t["--bg"] ?? t["--cat-bg"] ?? null,
+    bg:
+      t.background ??
+      t.backgroundColor ??
+      t["--pane-bg"] ??
+      t["--bg"] ??
+      t["--cat-bg"] ??
+      null,
     fg: t.color ?? t["--pane-fg"] ?? t["--fg"] ?? t["--cat-fg"] ?? null,
   };
 }
@@ -53,9 +57,21 @@ export default async function Archive() {
     <div className={styles.page}>
       <header className={styles.header}>
         <h1 className={styles.title}>
-          <Image src={star1} alt="" aria-hidden="true" className={styles.asterisk} sizes="100px" />
+          <Image
+            src={star1}
+            alt=""
+            aria-hidden="true"
+            className={styles.asterisk}
+            sizes="100px"
+          />
           <span>Archive</span>
-          <Image src={star1} alt="" aria-hidden="true" className={styles.asterisk} sizes="100px" />
+          <Image
+            src={star1}
+            alt=""
+            aria-hidden="true"
+            className={styles.asterisk}
+            sizes="100px"
+          />
         </h1>
         <p className={styles.lead}>
           Pick a category to meet the students and see their projects.
