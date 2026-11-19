@@ -5,7 +5,7 @@ import { resolveFolders } from "@/lib/ArchiveFolders";
 import styles from "@/styles/Archive.module.css";
 import ArchiveFolders from "./ArchiveFolders";
 import Image from "next/image";
-import star1 from "@/assets/star1.png";
+import star1 from "@/assets/Star1.png";
 
 export const metadata = {
   title: "Archive",
